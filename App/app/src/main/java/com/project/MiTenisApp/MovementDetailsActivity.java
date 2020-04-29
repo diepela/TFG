@@ -32,7 +32,7 @@ public class MovementDetailsActivity extends AppCompatActivity {
     public String ID;
 
     DatabaseSQLHelper mDatabaseSQLHelper;
-    String date, user, age, height, weight, device, mov, duration;
+    String date, user, age, brazo, device, mov, duration;
     MenuItem save;
     ArrayList<Integer> x = new ArrayList<>();
     ArrayList<Entry> y_acc_x =  new ArrayList<>();
@@ -172,8 +172,9 @@ public class MovementDetailsActivity extends AppCompatActivity {
             date = a.getDate() + " , "  + a.getTime();
             user = a.getName();
             age = a.getAge().toString();
-            height = a.getHeight().toString();
-            weight = a.getWeight().toString();
+            brazo = a.getBrazo();
+            // height = a.getHeight().toString();
+            // weight = a.getWeight().toString();
             mov = a.getId().toString();
             device = a.getDevice();
             duration = a.getDuration().toString();
@@ -218,8 +219,8 @@ public class MovementDetailsActivity extends AppCompatActivity {
                         if(first){
                             fw.write("Actividad:" + "," + mov + "," + "," + "," + "Usuario:" +  "," + user + NEXT_LINE);
                             fw.write("Fecha y hora:" + "," + date + "," + "," + "Edad:" +  "," + age + NEXT_LINE);
-                            fw.write("Dispositivo:" + "," + device + "," + "," + "," + "Altura (cm):" +  "," + height + NEXT_LINE);
-                            fw.write("Duracion (s): " + "," + duration + "," + "," + "," + "Peso (kg):" +  "," + weight + NEXT_LINE + NEXT_LINE);
+                            fw.write("Dispositivo:" + "," + device + "," + "," + "," + "Brazo dominante:" +  "," + brazo + NEXT_LINE);
+                            fw.write("Duracion (s): " + "," + duration + "," + "," + "," + NEXT_LINE + NEXT_LINE);
                                 fw.write("ID, Tiempo, ACC_X ,ACC_Y ,ACC_Z, GYR_X, GYR_Y, GYR_Z, MAG_X, MAG_Y, MAG_Z" + NEXT_LINE);
                         }
                         Movimiento m = new Movimiento(c);

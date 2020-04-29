@@ -366,8 +366,8 @@ public class MainActivity extends AppCompatActivity {
                         if(first){
                             fw.write("Actividad:" + "," + a.getMov() + "," + "," + "," + "Usuario:" +  "," + a.getName() + NEXT_LINE);
                             fw.write("Fecha y hora:" + "," + a.getDate() + " , "  + a.getTime() + "," + "," + "Edad:" +  "," + a.getAge().toString() + NEXT_LINE);
-                            fw.write("Dispositivo:" + "," + a.getDevice() + "," + "," + "," + "Altura (cm):" +  "," + a.getHeight().toString() + NEXT_LINE);
-                            fw.write("Duracion (s): " + "," + a.getDuration().toString() + "," + "," + "," + "Peso (kg):" +  "," + a.getWeight().toString() + NEXT_LINE + NEXT_LINE);
+                            fw.write("Dispositivo:" + "," + a.getDevice() + "," + "," + "," + "Brazo dominante:" +  "," + a.getBrazo() + NEXT_LINE);
+                            fw.write("Duracion (s): " + "," + a.getDuration().toString() + "," + "," + "," + NEXT_LINE + NEXT_LINE);
                             fw.write("ID, Tiempo, ACC_X ,ACC_Y ,ACC_Z, GYR_X, GYR_Y, GYR_Z, MAG_X, MAG_Y, MAG_Z" + NEXT_LINE);
                         }
                         Movimiento m = new Movimiento(c);

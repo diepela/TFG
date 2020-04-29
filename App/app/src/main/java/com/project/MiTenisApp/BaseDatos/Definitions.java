@@ -37,8 +37,9 @@ public class Definitions {
         public static final String DURATION = "duration";
         public static final String NAME = "name";
         public static final String AGE = "age";
-        public static final String WEIGHT = "weight";
-        public static final String HEIGHT = "height";
+        public static final String BRAZO = "brazo";
+        // public static final String WEIGHT = "weight";
+        // public static final String HEIGHT = "height";
     }
 
 
@@ -49,8 +50,9 @@ public class Definitions {
    //     public static final String ID = "id";
         public static final String FIELD_NAME = "name";
         public static final String FIELD_AGE = "age";
-        public static final String FIELD_WEIGHT = "weight";
-        public static final String FIELD_HEIGHT = "height";
+        public static final String FIELD_BRAZO = "brazo";
+        // public static final String FIELD_WEIGHT = "weight";
+        // public static final String FIELD_HEIGHT = "height";
 
     }
 }

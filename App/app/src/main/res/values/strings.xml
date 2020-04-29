@@ -1,13 +1,12 @@
 <resources>
-    <string name="app_name">DataFit</string>
+    <string name="app_name">MiTenisApp</string>
     <string name="devices">Dispositivos disponibles</string>
     <string name="action_settings">Configuración</string>
     <string name="users">Usuarios</string>
     <string name="new_user"> Usuario</string>
     <string name="user_name">Nombre</string>
     <string name="user_age">Edad</string>
-    <string name="user_weight">Peso (kg)</string>
-    <string name="user_height">Altura (cm)</string>
+    <string name="user_brazo">Brazo dominante</string>
     <string name="cancel">Cancelar</string>
     <string name="stop">Stop</string>
     <string name="record">Historial</string>

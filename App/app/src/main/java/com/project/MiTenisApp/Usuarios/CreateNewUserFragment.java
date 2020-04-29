@@ -31,8 +31,9 @@ public class CreateNewUserFragment extends Fragment {
 
     private EditText mNameField;
     private EditText mAgeField;
-    private EditText mWeightField;
-    private EditText mHeightField;
+    private EditText mBrazoField;
+    // private EditText mWeightField;
+    // private EditText mHeightField;
 
 
     /**
@@ -78,8 +79,10 @@ public class CreateNewUserFragment extends Fragment {
         FloatingActionButton mSaveButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         mNameField = (EditText) root.findViewById(R.id.user_name_text);
         mAgeField = (EditText) root.findViewById(R.id.user_age_text);
-        mWeightField = (EditText) root.findViewById(R.id.user_weight_text);
-        mHeightField = (EditText) root.findViewById(R.id.user_height_text);
+        mBrazoField = (EditText) root.findViewById(R.id.user_brazo_text);
+
+        // mWeightField = (EditText) root.findViewById(R.id.user_weight_text);
+        // mHeightField = (EditText) root.findViewById(R.id.user_height_text);
         mDatabaseSQLHelper = new DatabaseSQLHelper(getActivity());
 
 
@@ -127,8 +130,9 @@ public class CreateNewUserFragment extends Fragment {
     private void showUser(Usuario user) {
         mNameField.setText(user.getName());
         mAgeField.setText(user.getAge().toString());
-        mWeightField.setText(user.getWeight().toString());
-        mHeightField.setText(user.getHeight().toString());
+        mBrazoField.setText(user.getBrazo());
+        // mWeightField.setText(user.getWeight().toString());
+        // mHeightField.setText(user.getHeight().toString());
     }
 
     /**
@@ -140,14 +144,16 @@ public class CreateNewUserFragment extends Fragment {
         //Capturar nueva información
         String name = mNameField.getText().toString();
         Integer age = Integer.parseInt(mAgeField.getText().toString());
-        Double weight = Double.parseDouble(mWeightField.getText().toString());
-        Integer height = Integer.parseInt(mHeightField.getText().toString());
+        String brazo = mBrazoField.getText().toString();
+
+        // Double weight = Double.parseDouble(mWeightField.getText().toString());
+        // Integer height = Integer.parseInt(mHeightField.getText().toString());
 
         //Actualizar variable
         mUserName=name;
 
         //Definir usuario con la nueva información
-        Usuario user = new Usuario(name,age,weight,height);
+        Usuario user = new Usuario(name,age,brazo);
         return user;
     }
 

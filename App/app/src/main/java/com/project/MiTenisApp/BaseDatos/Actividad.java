@@ -18,11 +18,12 @@ public class Actividad {
     private Double duration;
     private String name;
     private Integer age;
-    private Double weight;
-    private Integer height;
+    private String brazo;
+    // private Double weight;
+    // private Integer height;
 
 
-    public Actividad(String mov, String device, String user_id, Double duration, String name, Integer age, Double weight, Integer height) {
+    public Actividad(String mov, String device, String user_id, Double duration, String name, Integer age, String brazo) {
 
         this.mov = mov;
         SimpleDateFormat date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
@@ -34,8 +35,9 @@ public class Actividad {
         this.duration = duration;
         this.name = name;
         this.age = age;
-        this.weight = weight;
-        this.height = height;
+        this.brazo = brazo;
+        // this.weight = weight;
+        // this.height = height;
     }
 
     public Actividad(Cursor cursor) {
@@ -49,8 +51,9 @@ public class Actividad {
 
         name= cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry.NAME));
         age= cursor.getInt(cursor.getColumnIndex(Definitions.ActivityEntry.AGE));
-        weight = cursor.getDouble(cursor.getColumnIndex(Definitions.ActivityEntry.WEIGHT));
-        height = cursor.getInt(cursor.getColumnIndex(Definitions.ActivityEntry.HEIGHT));
+        brazo = cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry.BRAZO));
+        // weight = cursor.getDouble(cursor.getColumnIndex(Definitions.ActivityEntry.WEIGHT));
+        // height = cursor.getInt(cursor.getColumnIndex(Definitions.ActivityEntry.HEIGHT));
     }
 
 
@@ -64,8 +67,9 @@ public class Actividad {
         values.put(Definitions.ActivityEntry.DURATION, duration);
         values.put(Definitions.ActivityEntry.NAME, name);
         values.put(Definitions.ActivityEntry.AGE, age);
-        values.put(Definitions.ActivityEntry.WEIGHT, weight);
-        values.put(Definitions.ActivityEntry.HEIGHT, height);
+        values.put(Definitions.ActivityEntry.BRAZO, brazo);
+        // values.put(Definitions.ActivityEntry.WEIGHT, weight);
+        // values.put(Definitions.ActivityEntry.HEIGHT, height);
 
         return values;
     }
@@ -106,13 +110,17 @@ public class Actividad {
         return age;
     }
 
-    public Double getWeight() {
+    public String getBrazo() {
+        return brazo;
+    }
+
+    /* public Double getWeight() {
         return weight;
     }
 
     public Integer getHeight() {
         return height;
-    }
+    } */
 
 
 }

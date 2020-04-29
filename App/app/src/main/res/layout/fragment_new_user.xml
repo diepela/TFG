@@ -87,53 +87,24 @@
         android:layout_gravity="center">
 
         <ImageView
-            android:id="@+id/weight_icon"
+            android:id="@+id/brazo_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="18dp"
-            android:src="@drawable/ic_weight" />
+            android:src="@drawable/ic_brazo" />
 
         <EditText
-            android:id="@+id/user_weight_text"
+            android:id="@+id/user_brazo_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
-            android:hint="@string/user_weight"
             android:layout_marginEnd="16dp"
-            android:fontFamily="@font/mandali"
-            android:textSize="18sp"
-            android:inputType="numberDecimal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingStart="10dp"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:id="@+id/height_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="18dp"
-            android:src="@drawable/ic_height" />
-
-        <EditText
-            android:id="@+id/user_height_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
             android:background="@android:drawable/editbox_background"
-            android:hint="@string/user_height"
-            android:layout_marginEnd="16dp"
             android:fontFamily="@font/mandali"
-            android:textSize="18sp"
-            android:inputType="number" />
+            android:hint="@string/user_brazo"
+            android:inputType="text"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>

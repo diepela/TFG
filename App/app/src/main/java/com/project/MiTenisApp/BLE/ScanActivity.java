@@ -15,9 +15,7 @@ import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,25 +23,24 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import com.project.MiTenisApp.BaseDatos.Actividad;
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
 import com.project.MiTenisApp.BaseDatos.Movimiento;
 import com.project.MiTenisApp.BaseDatos.Usuario;
 import com.project.MiTenisApp.Datos.Conversion;
 import com.project.MiTenisApp.R;
-import com.project.MiTenisApp.RecordsFragment;
-import com.project.MiTenisApp.RegisterActivityFragment;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -51,7 +48,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
@@ -856,7 +852,7 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
 
 
         //Crear un objeto de la clase Actividad
-        Actividad actividad = new Actividad(mov, mBleDevice.getName(), mUserId, duration, user.getName(), user.getAge(), user.getWeight(), user.getHeight());
+        Actividad actividad = new Actividad(mov, mBleDevice.getName(), mUserId, duration, user.getName(), user.getAge(), user.getBrazo());
 
         //Añadir Actividad a la base de datos
         addActivity(actividad);

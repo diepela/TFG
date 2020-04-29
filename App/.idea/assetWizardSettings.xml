@@ -35,6 +35,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="opacityPercent" value="80" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -46,9 +47,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\esthe\Downloads\kisspng-computer-icons-podium-podium-5abf2d2eb2d533.5597230315224783827325.png" />
-                                      <entry key="outputName" value="ic_podium" />
-                                      <entry key="theme" value="HOLO_DARK" />
+                                      <entry key="imageAsset" value="D:\Descargas\icon_brazo.png" />
+                                      <entry key="outputName" value="ic_brazo" />
+                                      <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
@@ -66,11 +67,22 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="45" />
                                               </map>
                                             </option>
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="ffffff" />
+                                      <entry key="backgroundLayerName" value="ic_brazo_back" />
+                                      <entry key="foregroundImage" value="D:\Descargas\icon_brazo.png" />
+                                      <entry key="foregroundLayerName" value="ic_brazo_fore" />
+                                      <entry key="outputName" value="ic_brazo" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -120,11 +132,6 @@
                             </entry>
                           </map>
                         </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
-                          </map>
-                        </option>
                       </PersistentState>
                     </value>
                   </entry>
@@ -148,7 +155,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_save_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_accessibility_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -158,8 +165,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_save" />
-                            <entry key="overrideSize" value="true" />
+                            <entry key="outputName" value="ic_brazo" />
                             <entry key="sourceFile" value="C:\Users\esthe\Desktop\TFG\podium.svg" />
                           </map>
                         </option>

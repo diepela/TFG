@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseSQLHelper extends SQLiteOpenHelper{
 
     public static final int DATABASE_VERSION = 3;
-    public static final String DATABASE_NAME = "Datafit.db";
+    public static final String DATABASE_NAME = "tenis.db";
 
     public DatabaseSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -19,8 +19,9 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
                 + Definitions.UsuarioEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + Definitions.UsuarioEntry.FIELD_NAME + " TEXT NOT NULL,"
                 + Definitions.UsuarioEntry.FIELD_AGE + " INTEGER NOT NULL,"
-                + Definitions.UsuarioEntry.FIELD_WEIGHT + " DOUBLE NOT NULL,"
-                + Definitions.UsuarioEntry.FIELD_HEIGHT + " INTEGER NOT NULL);");
+                + Definitions.UsuarioEntry.FIELD_BRAZO + " TEXT NOT NULL);");
+                // + Definitions.UsuarioEntry.FIELD_WEIGHT + " DOUBLE NOT NULL,"
+                // + Definitions.UsuarioEntry.FIELD_HEIGHT + " INTEGER NOT NULL);");
 
         db.execSQL("CREATE TABLE " + Definitions.MovimientoEntry.MOVS_TABLE + " ("
                 + Definitions.MovimientoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -46,8 +47,9 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
                 + Definitions.ActivityEntry.DURATION + " DOUBLE NOT NULL,"
                 + Definitions.ActivityEntry.NAME + " TEXT NOT NULL,"
                 + Definitions.ActivityEntry.AGE + " INTEGER NOT NULL,"
-                + Definitions.ActivityEntry.WEIGHT + " DOUBLE NOT NULL,"
-                + Definitions.ActivityEntry.HEIGHT + " INTEGER NOT NULL);");
+                + Definitions.ActivityEntry.BRAZO + "TEXT NOT NULL);");
+                // + Definitions.ActivityEntry.WEIGHT + " DOUBLE NOT NULL,"
+                // + Definitions.ActivityEntry.HEIGHT + " INTEGER NOT NULL);");
 
         mockData(db);
     }
