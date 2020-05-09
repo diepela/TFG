@@ -20,7 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.project.MiTenisApp.BaseDatos.Actividad;
+import com.project.MiTenisApp.BaseDatos.Golpe;
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
 import com.project.MiTenisApp.BaseDatos.Movimiento;
 import com.project.MiTenisApp.Usuarios.CreateNewUser;
@@ -278,8 +278,8 @@ public class MainActivity extends AppCompatActivity {
       if (c.moveToFirst()) {
             //Recorrer el cursor hasta que no haya más registros
             do {
-                Actividad a = new Actividad(c);
-                String mov = a.getMov();
+                Golpe g = new Golpe(c);
+                String mov = g.getMov();
                 mDatabaseSQLHelper.deleteMovementByMov(mov);
             } while(c.moveToNext());
         }
@@ -338,36 +338,36 @@ public class MainActivity extends AppCompatActivity {
         if (c.moveToFirst()) {
             //Recorrer el cursor hasta que no haya más registros
             do {
-                Actividad a = new Actividad(c);
-                i = i & saveActivity(a);
+                Golpe g = new Golpe(c);
+                i = i & saveActivity(g);
             } while(c.moveToNext());
         }
         return i;
     }
 
     /**
-     * Método para guardar la información de la actividad y de los movimientos en un fichero
-     * @param a actividad a guardar
+     * Método para guardar la información del golpe y de los movimientos en un fichero
+     * @param g golpe a guardar
      * @return true si se guarda correctamente
      *         false si hay error
      */
-    public boolean saveActivity(Actividad a) {
+    public boolean saveActivity(Golpe g) {
         boolean t = false;
         if (isExternalStorageWritable()) {
             String directory = getPublicDocStorageDir();
             boolean first = true;
             final String NEXT_LINE = "\n";
-            Cursor c = mDatabaseSQLHelper.getMovementsByActivityId(a.getMov());
+            Cursor c = mDatabaseSQLHelper.getMovementsByActivityId(g.getMov());
             try {
-                FileWriter fw=new FileWriter(directory + a.getMov() + ".csv");
+                FileWriter fw=new FileWriter(directory + g.getMov() + ".csv");
                 if (c.moveToFirst()) {
                     //Recorrer el cursor hasta que no haya más registros
                     do {
                         if(first){
-                            fw.write("Actividad:" + "," + a.getMov() + "," + "," + "," + "Usuario:" +  "," + a.getName() + NEXT_LINE);
-                            fw.write("Fecha y hora:" + "," + a.getDate() + " , "  + a.getTime() + "," + "," + "Edad:" +  "," + a.getAge().toString() + NEXT_LINE);
-                            fw.write("Dispositivo:" + "," + a.getDevice() + "," + "," + "," + "Brazo dominante:" +  "," + a.getBrazo() + NEXT_LINE);
-                            fw.write("Duracion (s): " + "," + a.getDuration().toString() + "," + "," + "," + NEXT_LINE + NEXT_LINE);
+                            fw.write("Golpe:" + "," + g.getMov() + "," + "," + "," + "Usuario:" +  "," + g.getName() + NEXT_LINE);
+                            fw.write("Fecha y hora:" + "," + g.getDate() + " , "  + g.getTime() + "," + "," + "Edad:" +  "," + g.getAge().toString() + NEXT_LINE);
+                            fw.write("Dispositivo:" + "," + g.getDevice() + "," + "," + "," + "Brazo dominante:" +  "," + g.getBrazo() + NEXT_LINE);
+                            fw.write("Duración (s): " + "," + g.getDuration().toString() + "," + "," + "," + NEXT_LINE + NEXT_LINE);
                             fw.write("ID, Tiempo, ACC_X ,ACC_Y ,ACC_Z, GYR_X, GYR_Y, GYR_Z, MAG_X, MAG_Y, MAG_Z" + NEXT_LINE);
                         }
                         Movimiento m = new Movimiento(c);

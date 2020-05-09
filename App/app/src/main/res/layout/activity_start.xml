@@ -21,7 +21,6 @@
         android:layout_below="@id/image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-50dp"
-        android:fontFamily="@font/mandali"
         android:text="@string/app_name"
         android:textColor="@color/colorWhite"
         android:textSize="40sp"

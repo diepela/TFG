@@ -35,11 +35,11 @@ public class MovementCursorAdapter  extends CursorAdapter {
 
 
             // Obtener los valores de la base de datos
-            String id = cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry._ID));
-            String date = cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry.DATE));
-            String time = cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry.TIME));
-            String timestamp = cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry.DURATION));
-            String device = cursor.getString(cursor.getColumnIndex(Definitions.ActivityEntry.DEVICE));
+            String id = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry._ID));
+            String date = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DATE));
+            String time = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.TIME));
+            String timestamp = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DURATION));
+            String device = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DEVICE));
 
             // Asignar los valores a los elementos del layout
             idText.setText(id);

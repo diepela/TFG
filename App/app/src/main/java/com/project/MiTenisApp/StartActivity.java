@@ -10,7 +10,7 @@ import com.project.MiTenisApp.Usuarios.UsersActivity;
 public class StartActivity extends AppCompatActivity {
 
     // Duración en milisegundos que se mostrará el splash
-    private final int DURACION_SPLASH = 1500; // 1,5 segundos
+    private final int DURACION_SPLASH = 1000; // 1 segundo
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

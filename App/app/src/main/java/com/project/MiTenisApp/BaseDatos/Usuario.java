@@ -16,16 +16,12 @@ public class Usuario {
         this.name = name;
         this.age = age;
         this.brazo = brazo;
-        // this.weight = weight;
-        // this.height = height;
     }
 
     public Usuario(Cursor cursor) {
         name = cursor.getString(cursor.getColumnIndex(Definitions.UsuarioEntry.FIELD_NAME));
         age = cursor.getInt(cursor.getColumnIndex(Definitions.UsuarioEntry.FIELD_AGE));
         brazo = cursor.getString(cursor.getColumnIndex(Definitions.UsuarioEntry.FIELD_BRAZO));
-        // weight = cursor.getDouble(cursor.getColumnIndex(Definitions.UsuarioEntry.FIELD_WEIGHT));
-        // height = cursor.getInt(cursor.getColumnIndex(Definitions.UsuarioEntry.FIELD_HEIGHT));
     }
 
     public ContentValues toContentValues() {
@@ -49,14 +45,6 @@ public class Usuario {
     public String getBrazo() {
         return brazo;
     }
-
-    /* public Double getWeight() {
-        return weight;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }*/
 
 }
 

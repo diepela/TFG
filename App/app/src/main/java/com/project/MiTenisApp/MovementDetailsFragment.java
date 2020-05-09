@@ -1,7 +1,5 @@
 package com.project.MiTenisApp;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,12 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -71,25 +66,33 @@ public class MovementDetailsFragment extends Fragment {
         //Definición e inicialización de la gráfica con los datos a representar
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
 
-        LineDataSet set1 = new LineDataSet(((MovementDetailsActivity)getActivity()).y_acc_x, "ACC X");
+        LineDataSet set1 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatX, "quatX");
         set1.setAxisDependency(YAxis.AxisDependency.LEFT);
         set1.setDrawCircleHole(false);
         set1.setColor(Color.BLUE);
 
-        LineDataSet set2 = new LineDataSet(((MovementDetailsActivity)getActivity()).y_acc_y, "ACC Y");
+        LineDataSet set2 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatY, "quatY");
         set2.setAxisDependency(YAxis.AxisDependency.LEFT);
         set2.setDrawCircleHole(false);
         set2.setColor(Color.RED);
 
-        LineDataSet set3 = new LineDataSet(((MovementDetailsActivity)getActivity()).y_acc_z, "ACC Z");
+        /*LineDataSet set3 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatW, "quatW");
         set3.setAxisDependency(YAxis.AxisDependency.LEFT);
         set3.setDrawCircleHole(false);
-        set3.setColor(Color.GREEN);
+        set3.setColor(Color.GREEN);*/
+
+        /*LineDataSet set4 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatZ, "quatZ");
+        set4.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set4.setDrawCircleHole(false);
+        set4.setColor(Color.YELLOW);*/
+
+
 
         ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
         lineDataSets.add(set1);
         lineDataSets.add(set2);
-        lineDataSets.add(set3);
+        //lineDataSets.add(set3);
+        //lineDataSets.add(set4);
 
         LineData data = new LineData(lineDataSets);
         mLineChart.setData(data);

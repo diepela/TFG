@@ -35,8 +35,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.project.MiTenisApp.BaseDatos.Actividad;
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
+import com.project.MiTenisApp.BaseDatos.Golpe;
 import com.project.MiTenisApp.BaseDatos.Movimiento;
 import com.project.MiTenisApp.BaseDatos.Usuario;
 import com.project.MiTenisApp.Datos.Conversion;
@@ -91,13 +91,17 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
 
 
     // This is one of the most used descriptor: Client Characteristic Configuration Descriptor. 0x2902
-    public static final UUID UUID_DESCRIPTOR = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
-    public static final UUID UUID_SERVICE_SENSORS_DATA = UUID.fromString("00000000-0001-11e1-9ab4-0002a5d5c51b");
-    public static final UUID UUID_CHARACTERISTIC_SENSORS_DATA = UUID.fromString("00e00000-0001-11e1-ac36-0002a5d5c51b");
-
-    public static final UUID UUID_CONFIG_SERVICE = UUID.fromString("00000000-000f-11e1-9ab4-0002a5d5c51b");
-    public static final UUID UUID_REGISTER_ACCESS = UUID.fromString("00000001-000f-11e1-ac36-0002a5d5c51b");
+    public static final UUID UUID_DESCRIPTOR = UUID.fromString(
+            "00002902-0000-1000-8000-00805f9b34fb");
+    public static final UUID UUID_SERVICE_SENSORS_DATA = UUID.fromString(
+            "00000000-0001-11e1-9ab4-0002a5d5c51b");
+    public static final UUID UUID_CHARACTERISTIC_SENSORS_DATA = UUID.fromString(
+            "00e00000-0001-11e1-ac36-0002a5d5c51b");
+    public static final UUID UUID_CONFIG_SERVICE = UUID.fromString(
+            "00000000-000f-11e1-9ab4-0002a5d5c51b");
+    public static final UUID UUID_REGISTER_ACCESS = UUID.fromString(
+            "00000001-000f-11e1-ac36-0002a5d5c51b");
 
 
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
@@ -651,15 +655,15 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
      * Método para configurar el periodo y los sensores
      */
     public void configureSensors() {
-        setPeriod(mBleGatt,104);                        //Configurar frecuencia timer a 104 Hz
+        setPeriod(mBleGatt,50);                        //Configurar frecuencia timer a 50 Hz (periodo 20ms)
         setSensors(mBleGatt,0,false,4);     //Configurar ACC  FS:  4 g
-        setSensors(mBleGatt,0,true,104);   //Configurar ACC  ODR: 104 Hz
+        setSensors(mBleGatt,0,true,50);   //Configurar ACC  ODR: 500 Hz
         setSensors(mBleGatt,1,false,2000);  //Configurar GYR  FS:  2000 dps
-        setSensors(mBleGatt,1,true,104);   //Configurar GYR  ODR: 104 Hz
+        setSensors(mBleGatt,1,true,50);   //Configurar GYR  ODR: 500 Hz
         setSensors(mBleGatt,2,false,32);    //Configurar MAG  FS:  32  gauss
         setSensors(mBleGatt,2,true,20);   //Configurar MAG  ODR: 20 Hz
 
-        Log.i("FIT APP", "Sensors configured");
+        Log.i("Tenis App - sensores", "Sensores configurados");
     }
 
     /**
@@ -813,21 +817,24 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
      * @param mov   identificador de la actividad a realizar
      **/
     private Movimiento split (byte[] value, String mov){
+
         //Obtener valores convertidos de los sensores
         Integer ts = Conversion.convertTs(value);
         Double[] ACC = Conversion.convertACC(value);
         Double[] GYR = Conversion.convertGYR(value);
         Double[] MAG = Conversion.convertMAG(value);
+
         //Crear un objeto de la clase Movimiento
         return new Movimiento(mov,ts,ACC,GYR,MAG);
+
     }
 
     /**
      * Guardar el movimiento en la base de datos
      * @param mov      movimiento de la clase Movimiento a guardar
      **/
-    private void addMovement(Movimiento... mov) {
-        long i = mDatabaseSQLHelper.saveMovement(mov[0]);
+    private void addMovement(Movimiento mov) {
+        long i = mDatabaseSQLHelper.saveMovement(mov);
     }
 
     /**
@@ -852,10 +859,10 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
 
 
         //Crear un objeto de la clase Actividad
-        Actividad actividad = new Actividad(mov, mBleDevice.getName(), mUserId, duration, user.getName(), user.getAge(), user.getBrazo());
+        Golpe golpe = new Golpe(mov, mBleDevice.getName(), mUserId, duration, user.getName(), user.getAge(), user.getBrazo(), "Sin analizar");
 
         //Añadir Actividad a la base de datos
-        addActivity(actividad);
+        addActivity(golpe);
 
         mDatabaseSQLHelper.close();
 
@@ -871,11 +878,11 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     }
 
     /**
-     * Guardar la actividad en la base de datos
-     * @param act       actividad de la clase Actividad a guardar
+     * Guardar el golpe efectuado en la base de datos
+     * @param golpe       golpe de la clase Golpe a guardar
      **/
-    private void addActivity(Actividad... act) {
-        long i = mDatabaseSQLHelper.saveActivity(act[0]);
+    private void addActivity(Golpe... golpe) {
+        long i = mDatabaseSQLHelper.saveActivity(golpe[0]);
     }
 
 

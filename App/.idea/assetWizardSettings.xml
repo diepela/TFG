@@ -67,7 +67,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="45" />
+                                                <entry key="scalingPercent" value="67" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -79,10 +79,7 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="backgroundLayerName" value="ic_brazo_back" />
-                                      <entry key="foregroundImage" value="D:\Descargas\icon_brazo.png" />
-                                      <entry key="foregroundLayerName" value="ic_brazo_fore" />
-                                      <entry key="outputName" value="ic_brazo" />
+                                      <entry key="foregroundImage" value="D:\Descargas\logos\images.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

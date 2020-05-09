@@ -11,8 +11,8 @@
     <string name="stop">Stop</string>
     <string name="record">Historial</string>
     <string name="title_activity_users">Users</string>
-    <string name="register_activity">Nueva actividad</string>
-    <string name="new_activity">Nueva\nactividad</string>
+    <string name="register_activity">Registrar golpe</string>
+    <string name="new_activity">Nuevo\ngolpe</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="change_data">Modificar datos usuario</string>
     <string name="change_user">Cambiar usuario</string>

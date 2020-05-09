@@ -42,7 +42,7 @@ public class UsersActivity extends AppCompatActivity {
 
         //Definición y evento del botón
         Button new_user = findViewById(R.id.new_user);
-       new_user.setOnClickListener(new View.OnClickListener() {
+        new_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }

@@ -9,16 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.project.MiTenisApp.BLE.ScanActivity;
-import com.project.MiTenisApp.BaseDatos.Actividad;
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
+import com.project.MiTenisApp.BaseDatos.Golpe;
 import com.project.MiTenisApp.BaseDatos.Movimiento;
 import com.github.mikephil.charting.data.Entry;
-
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,23 +32,47 @@ public class MovementDetailsActivity extends AppCompatActivity {
     public String ID;
 
     DatabaseSQLHelper mDatabaseSQLHelper;
-    String date, user, age, brazo, device, mov, duration;
+    String date, user, age, brazo, tipoGolpe, device, mov, duration;
     MenuItem save;
-    ArrayList<Integer> x = new ArrayList<>();
-    ArrayList<Entry> y_acc_x =  new ArrayList<>();
-    ArrayList<Entry> y_acc_y =  new ArrayList<>();
-    ArrayList<Entry> y_acc_z =  new ArrayList<>();
 
-    //Definición de fragmentos
+    // Variables para obtener datos medidos
+    Float acc_x;
+    Float acc_y;
+    Float acc_z;
+
+    Float gyr_x;
+    Float gyr_y;
+    Float gyr_z;
+
+    Float mag_x;
+    Float mag_y;
+    Float mag_z;
+
+    // Donde se almacenará el cuaternión tras pasar por Madgwick
+    float[] quaternion;
+
+    // Objeto Madgwick (Beta 0.041 valor recomendado, habrá que hacer pruebas)
+    private MadgwickAHRS mMadgwickAHRS = new MadgwickAHRS(0.2f, 0.041f);
+
+    // Arrays donde meteremos los ejes del cuaternión
+    ArrayList<Entry> quatX = new ArrayList<>();
+    ArrayList<Entry> quatY = new ArrayList<>();
+    ArrayList<Entry> quatW = new ArrayList<>();
+    ArrayList<Entry> quatZ = new ArrayList<>();
+
+    // Definición de fragmentos
     final Fragment MovementDetails = new MovementDetailsFragment();
     final Fragment SaveActivity = new SaveActivityFragment();
     final FragmentManager fm = getSupportFragmentManager();
+
+    public MovementDetailsActivity() {
+    }
 
     /**
      * Método que define las acciones al crearse la actividad
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         //Definir el layout a usar
@@ -168,16 +192,15 @@ public class MovementDetailsActivity extends AppCompatActivity {
     private void getActivity(){
         Cursor c= mDatabaseSQLHelper.getActivityByMovId(ID);
         if (c != null && c.moveToLast()) {
-            Actividad a = new Actividad(c);
-            date = a.getDate() + " , "  + a.getTime();
-            user = a.getName();
-            age = a.getAge().toString();
-            brazo = a.getBrazo();
-            // height = a.getHeight().toString();
-            // weight = a.getWeight().toString();
-            mov = a.getId().toString();
-            device = a.getDevice();
-            duration = a.getDuration().toString();
+            Golpe g = new Golpe(c);
+            date = g.getDate() + " , "  + g.getTime();
+            user = g.getName();
+            age = g.getAge().toString();
+            brazo = g.getBrazo();
+            tipoGolpe = g.getTipo();
+            mov = g.getId().toString();
+            device = g.getDevice();
+            duration = g.getDuration().toString();
         }
     }
 
@@ -190,9 +213,38 @@ public class MovementDetailsActivity extends AppCompatActivity {
             //Recorrer el cursor hasta que no haya más registros
             do {
                 Movimiento m = new Movimiento(c);
-                y_acc_x.add(new Entry(m.getTimestamp(),m.getAcc_X().floatValue()));
-                y_acc_y.add(new Entry(m.getTimestamp(),m.getAcc_Y().floatValue()));
-                y_acc_z.add(new Entry(m.getTimestamp(),m.getAcc_Z().floatValue()));
+
+                // Tomamos los datos de los 3 sensores
+                acc_x = m.getAcc_X().floatValue();
+                acc_y = m.getAcc_Y().floatValue();
+                acc_z = m.getAcc_Z().floatValue();
+
+                gyr_x = m.getGyr_X().floatValue();
+                gyr_y = m.getGyr_Y().floatValue();
+                gyr_z = m.getGyr_Z().floatValue();
+
+                mag_x = m.getMag_X().floatValue();
+                mag_y = m.getMag_Y().floatValue();
+                mag_z = m.getMag_Z().floatValue();
+
+
+                // Le pasamos a la clase AHRS los valores obtenidos para que haga lo suyo
+                // y nos actualice el quaternion
+                mMadgwickAHRS.update(acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z, mag_x, gyr_y, gyr_z);
+
+                quaternion = mMadgwickAHRS.getQuaternion();
+
+                // Añadimos esos datos a nuestros array para representarlo
+                quatX.add(new Entry(m.getTimestamp(), quaternion[0]));
+                quatY.add(new Entry(m.getTimestamp(), quaternion[1]));
+                quatW.add(new Entry(m.getTimestamp(), quaternion[2]));
+                quatZ.add(new Entry(m.getTimestamp(), quaternion[3]));
+
+                // Aquí realizamos las operaciones para obtener el tipo de golpe que es
+                tipoGolpe = "Derecha";
+                int prueba = mDatabaseSQLHelper.updateGolpe(tipoGolpe, ID);
+                Log.i("loko", ""+prueba);
+
             } while(c.moveToNext());
         }
     }
@@ -220,7 +272,7 @@ public class MovementDetailsActivity extends AppCompatActivity {
                             fw.write("Actividad:" + "," + mov + "," + "," + "," + "Usuario:" +  "," + user + NEXT_LINE);
                             fw.write("Fecha y hora:" + "," + date + "," + "," + "Edad:" +  "," + age + NEXT_LINE);
                             fw.write("Dispositivo:" + "," + device + "," + "," + "," + "Brazo dominante:" +  "," + brazo + NEXT_LINE);
-                            fw.write("Duracion (s): " + "," + duration + "," + "," + "," + NEXT_LINE + NEXT_LINE);
+                            fw.write("Duracion (s): " + "," + duration + "," + "," + "," + "Tipo de golpe: " + tipoGolpe + NEXT_LINE + NEXT_LINE);
                                 fw.write("ID, Tiempo, ACC_X ,ACC_Y ,ACC_Z, GYR_X, GYR_Y, GYR_Z, MAG_X, MAG_Y, MAG_Z" + NEXT_LINE);
                         }
                         Movimiento m = new Movimiento(c);
@@ -272,7 +324,6 @@ public class MovementDetailsActivity extends AppCompatActivity {
                 Environment.DIRECTORY_DOCUMENTS).getPath();
     }
 
-
     /**
      * Método para eliminar la actividad y sus movimientos de la base de datos
      * @return  true si ha tenido éxito
@@ -286,4 +337,5 @@ public class MovementDetailsActivity extends AppCompatActivity {
 
         return((i+j)>0);
     }
+
 }

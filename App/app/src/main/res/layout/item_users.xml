@@ -30,7 +30,6 @@
             android:singleLine="true"
             android:textStyle="normal"
             android:text="@string/user_name"
-            android:fontFamily="@font/mandali"
             android:textSize="20dp"/>
 
     </RelativeLayout>

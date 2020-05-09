@@ -69,7 +69,7 @@ public class RecordsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Cursor currentItem = (Cursor) mMovementAdapter.getItem(i);
-                String id = currentItem.getString(currentItem.getColumnIndex(Definitions.ActivityEntry.MOV));
+                String id = currentItem.getString(currentItem.getColumnIndex(Definitions.GolpeEntry.MOV));
                 //Empezar una nueva actividad
                 showDetailActivity(id);
             }

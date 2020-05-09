@@ -32,9 +32,6 @@ public class CreateNewUserFragment extends Fragment {
     private EditText mNameField;
     private EditText mAgeField;
     private EditText mBrazoField;
-    // private EditText mWeightField;
-    // private EditText mHeightField;
-
 
     /**
      *  Constructor vacío necesario
@@ -72,19 +69,16 @@ public class CreateNewUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Definir el layout a usar
+        // Definir el layout a usar
         View root = inflater.inflate(R.layout.fragment_new_user, container, false);
 
-        //Referencias a objetos del layout
+        // Referencias a objetos del layout
         FloatingActionButton mSaveButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         mNameField = (EditText) root.findViewById(R.id.user_name_text);
         mAgeField = (EditText) root.findViewById(R.id.user_age_text);
         mBrazoField = (EditText) root.findViewById(R.id.user_brazo_text);
 
-        // mWeightField = (EditText) root.findViewById(R.id.user_weight_text);
-        // mHeightField = (EditText) root.findViewById(R.id.user_height_text);
         mDatabaseSQLHelper = new DatabaseSQLHelper(getActivity());
-
 
         // Cargar y mostrar datos guardados del usuario
         if (mUserId != null) {

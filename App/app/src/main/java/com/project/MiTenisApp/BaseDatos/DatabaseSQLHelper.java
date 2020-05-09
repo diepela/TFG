@@ -37,19 +37,18 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
                 + Definitions.MovimientoEntry.MAG_Y + " DOUBLE NOT NULL,"
                 + Definitions.MovimientoEntry.MAG_Z + " DOUBLE NOT NULL);");
 
-        db.execSQL("CREATE TABLE " + Definitions.ActivityEntry.ACTS_TABLE + " ("
-                + Definitions.ActivityEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Definitions.ActivityEntry.MOV + " TEXT NOT NULL,"
-                + Definitions.ActivityEntry.DATE + " TEXT NOT NULL,"
-                + Definitions.ActivityEntry.TIME + " TEXT NOT NULL,"
-                + Definitions.ActivityEntry.DEVICE + " TEXT NOT NULL,"
-                + Definitions.ActivityEntry.USER_ID + " TEXT NOT NULL,"
-                + Definitions.ActivityEntry.DURATION + " DOUBLE NOT NULL,"
-                + Definitions.ActivityEntry.NAME + " TEXT NOT NULL,"
-                + Definitions.ActivityEntry.AGE + " INTEGER NOT NULL,"
-                + Definitions.ActivityEntry.BRAZO + "TEXT NOT NULL);");
-                // + Definitions.ActivityEntry.WEIGHT + " DOUBLE NOT NULL,"
-                // + Definitions.ActivityEntry.HEIGHT + " INTEGER NOT NULL);");
+        db.execSQL("CREATE TABLE " + Definitions.GolpeEntry.ACTS_TABLE + " ("
+                + Definitions.GolpeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Definitions.GolpeEntry.MOV + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.DATE + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.TIME + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.DEVICE + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.USER_ID + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.DURATION + " DOUBLE NOT NULL,"
+                + Definitions.GolpeEntry.NAME + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.AGE + " INTEGER NOT NULL,"
+                + Definitions.GolpeEntry.BRAZO + "TEXT NOT NULL,"
+                + Definitions.GolpeEntry.TIPO + " TEXT NOT NULL);");
 
         mockData(db);
     }
@@ -179,18 +178,18 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
 
     //////////////////////////////// MÉTODOS ACTIVIDADES ///////////////////////////////////////////
 
-    public long saveActivity(Actividad act) {
+    public long saveActivity(Golpe golpe) {
         return getWritableDatabase().insert(
-                Definitions.ActivityEntry.ACTS_TABLE,
+                Definitions.GolpeEntry.ACTS_TABLE,
                 null,
-                act.toContentValues());
+                golpe.toContentValues());
 
     }
 
     //Ordenar por orden descendente según puntuación
     public Cursor getBestActivities() {
         return getReadableDatabase().query(
-                Definitions.ActivityEntry.ACTS_TABLE,
+                Definitions.GolpeEntry.ACTS_TABLE,
                 null,
                 null,
                 null,
@@ -203,9 +202,9 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
     public Cursor getActivitiesByUserId(String userId) {
 
         return getReadableDatabase().query(
-                Definitions.ActivityEntry.ACTS_TABLE,
+                Definitions.GolpeEntry.ACTS_TABLE,
                 null,
-                Definitions.ActivityEntry.USER_ID + " LIKE ?",
+                Definitions.GolpeEntry.USER_ID + " LIKE ?",
                 new String[]{userId},
                 null,
                 null,
@@ -215,9 +214,9 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
     // Filtrar según identificador de actividad
     public Cursor getActivityByMovId(String mov) {
         return getReadableDatabase().query(
-                Definitions.ActivityEntry.ACTS_TABLE,
+                Definitions.GolpeEntry.ACTS_TABLE,
                 null,
-                Definitions.ActivityEntry.MOV + " LIKE ?",
+                Definitions.GolpeEntry.MOV + " LIKE ?",
                 new String[]{mov},
                 null,
                 null,
@@ -228,7 +227,7 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
     public Cursor getAllActivities() {
         return getReadableDatabase()
                 .query(
-                        Definitions.ActivityEntry.ACTS_TABLE,
+                        Definitions.GolpeEntry.ACTS_TABLE,
                         null,
                         null,
                         null,
@@ -241,8 +240,8 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
     //Eliminar todas las actividades del usuario
     public int deleteActivityByUserId(String userId) {
         return getWritableDatabase().delete(
-                Definitions.ActivityEntry.ACTS_TABLE,
-                Definitions.ActivityEntry.USER_ID + " LIKE ?",
+                Definitions.GolpeEntry.ACTS_TABLE,
+                Definitions.GolpeEntry.USER_ID + " LIKE ?",
                 new String[]{userId}
         );
     }
@@ -251,10 +250,19 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
     //Eliminar una actividad por identificador de actividad
     public int deleteActivityByMovId(String mov) {
         return getWritableDatabase().delete(
-                Definitions.ActivityEntry.ACTS_TABLE,
-                Definitions.ActivityEntry._ID + " LIKE ?",
+                Definitions.GolpeEntry.ACTS_TABLE,
+                Definitions.GolpeEntry._ID + " LIKE ?",
                 new String[]{mov}
         );
+    }
+
+
+    // Actualizar golpe con tipo de golpe
+    public int updateGolpe(String tipo, String id){
+        getWritableDatabase().execSQL(
+                "UPDATE GOLPES SET tipo = '" +tipo+ "' WHERE mov = '" + id+"'");
+        return 1;
+
     }
 
 

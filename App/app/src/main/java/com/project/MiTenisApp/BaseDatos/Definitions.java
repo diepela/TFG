@@ -6,10 +6,10 @@ public class Definitions {
 
     public static abstract class MovimientoEntry implements BaseColumns {
 
-        //Nombre de la tabla
+        // Nombre de la tabla
         public static final String MOVS_TABLE = "MOVEMENTS";
 
-        //Columnas de la tabla
+        // Columnas de la tabla
         public static final String MOV = "mov";
         public static final String TIMESTAMP = "timestamp";
         public static final String ACC_X= "ACC_X";
@@ -23,12 +23,12 @@ public class Definitions {
         public static final String MAG_Z= "MAG_Z";
     }
 
-    public static abstract class ActivityEntry implements BaseColumns {
+    public static abstract class GolpeEntry implements BaseColumns {
 
-        //Nombre de la tabla
-        public static final String ACTS_TABLE = "ACTIVITIES";
+        // Nombre de la tabla
+        public static final String ACTS_TABLE = "GOLPES";
 
-        //Columnas de la tabla
+        // Columnas de la tabla
         public static final String MOV = "mov";
         public static final String DATE = "date";
         public static final String TIME = "time";
@@ -38,21 +38,20 @@ public class Definitions {
         public static final String NAME = "name";
         public static final String AGE = "age";
         public static final String BRAZO = "brazo";
-        // public static final String WEIGHT = "weight";
-        // public static final String HEIGHT = "height";
+        public static final String TIPO = "tipo";
+
     }
 
 
     public static abstract class UsuarioEntry implements BaseColumns {
 
+        // Nombre
         public static final String USER_TABLE = "USERS";
 
-   //     public static final String ID = "id";
+        // Columnas
         public static final String FIELD_NAME = "name";
         public static final String FIELD_AGE = "age";
         public static final String FIELD_BRAZO = "brazo";
-        // public static final String FIELD_WEIGHT = "weight";
-        // public static final String FIELD_HEIGHT = "height";
 
     }
 }

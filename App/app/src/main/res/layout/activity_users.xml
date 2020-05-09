@@ -16,7 +16,6 @@
             android:layout_below="@id/toolbar"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:fontFamily="@font/mandali"
             android:gravity="center"
             android:paddingTop="12dp"
             android:text="@string/users"
