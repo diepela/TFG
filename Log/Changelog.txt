@@ -1,0 +1,9 @@
+
+EN ESTE FICHERO IRÉ ACTUALIZANDO CON LO QUE AÑADA
+
+2020-05-13
+Se añade detección de golpe: solo registra lo que es el golpe en sí.
+Se hace mediante 2 flags. 
+	Inicio -> acc_y supera el 1
+	Final -> acc_y baja de 0.5
+Falta realizar más pruebas para afinar esto, pero la app hace lo que se pide con estos umbrales.
