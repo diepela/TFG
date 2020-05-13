@@ -76,21 +76,21 @@ public class MovementDetailsFragment extends Fragment {
         set2.setDrawCircleHole(false);
         set2.setColor(Color.RED);
 
-        /*LineDataSet set3 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatW, "quatW");
+        LineDataSet set3 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatW, "quatW");
         set3.setAxisDependency(YAxis.AxisDependency.LEFT);
         set3.setDrawCircleHole(false);
-        set3.setColor(Color.GREEN);*/
+        set3.setColor(Color.GREEN);
 
-        /*LineDataSet set4 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatZ, "quatZ");
+        LineDataSet set4 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatZ, "quatZ");
         set4.setAxisDependency(YAxis.AxisDependency.LEFT);
         set4.setDrawCircleHole(false);
-        set4.setColor(Color.YELLOW);*/
+        set4.setColor(Color.YELLOW);
 
 
 
         ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
         lineDataSets.add(set1);
-        lineDataSets.add(set2);
+        //lineDataSets.add(set2);
         //lineDataSets.add(set3);
         //lineDataSets.add(set4);
 

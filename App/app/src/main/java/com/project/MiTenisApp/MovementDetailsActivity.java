@@ -48,6 +48,11 @@ public class MovementDetailsActivity extends AppCompatActivity {
     Float mag_y;
     Float mag_z;
 
+    // Acc de prueba
+    ArrayList<Entry> AccX = new ArrayList<>();
+    ArrayList<Entry> AccY = new ArrayList<>();
+    ArrayList<Entry> AccZ = new ArrayList<>();
+
     // Donde se almacenará el cuaternión tras pasar por Madgwick
     float[] quaternion;
 
@@ -226,6 +231,11 @@ public class MovementDetailsActivity extends AppCompatActivity {
                 mag_x = m.getMag_X().floatValue();
                 mag_y = m.getMag_Y().floatValue();
                 mag_z = m.getMag_Z().floatValue();
+
+                // Prueba
+                AccX.add(new Entry(m.getTimestamp(), acc_x));
+                AccY.add(new Entry(m.getTimestamp(), acc_y));
+                AccZ.add(new Entry(m.getTimestamp(), acc_z));
 
 
                 // Le pasamos a la clase AHRS los valores obtenidos para que haga lo suyo

@@ -13,13 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.project.MiTenisApp.MovementDetailsActivity;
 import com.project.MiTenisApp.R;
-import com.project.MiTenisApp.Usuarios.CreateNewUser;
-import com.project.MiTenisApp.Usuarios.CreateNewUserFragment;
 
 import java.util.Calendar;
 
@@ -96,10 +93,7 @@ public class newMovementFragment extends Fragment {
                         //Si no está pulsado
                         startButton.setText(R.string.start_capture);
                         circularProgressBar.setVisibility(View.INVISIBLE);
-                        millisEnd = Calendar.getInstance().getTimeInMillis();
-                        String mov = ((ScanActivity)getActivity()).toDatabase((millisEnd-millisStart)/1000.0);
-                        ((ScanActivity)getActivity()).disableNotifications(ScanActivity.mBleGatt);
-                        showDetailActivity(mov);
+                        stopActivity();
                     }
                 }
             });
@@ -162,6 +156,16 @@ public class newMovementFragment extends Fragment {
                     break;
             }
         }
+    }
+
+    /**
+     * Método para parar el registro del golpe
+     * */
+    public void stopActivity(){
+        millisEnd = Calendar.getInstance().getTimeInMillis();
+        String mov = ((ScanActivity)getActivity()).toDatabase((millisEnd-millisStart)/1000.0);
+        ((ScanActivity)getActivity()).disableNotifications(ScanActivity.mBleGatt);
+        showDetailActivity(mov);
     }
 
 }

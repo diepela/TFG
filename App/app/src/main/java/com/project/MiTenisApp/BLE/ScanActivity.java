@@ -67,6 +67,13 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     private boolean isWriting;
     public boolean mSearching;
 
+    // Variables para detección de golpe
+    boolean flag_inicio = false;
+    boolean flag_final = false;
+    double acc_x;
+    double acc_y;
+    double acc_z;
+
     String mov;
     public String mUserId;
     String[] devicesArray = null;
@@ -929,17 +936,40 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
                         return;
                     }
 
-                    //Crear identificador de nueva actividad
+                    // Crear identificador de nueva actividad
                     if(NEW_MOV) {
                         SimpleDateFormat data = new SimpleDateFormat("ddMMyyyyHHmm", Locale.getDefault());
                         mov =  data.format(new Date());
                     }
 
-                    //Crear objeto de la clase Movimiento a partir de los datos obtenidos
+                    // Crear objeto de la clase Movimiento a partir de los datos obtenidos
                     Movimiento m = split(characteristic.getValue(), mov);
+                    Log.i("flag1", ""+flag_inicio);
+                    Log.i("flag2", ""+flag_final);
 
-                    //Añadir el objeto a una lista
-                    movimiento.add(m);
+                    // Activación de las flags: inicio cuando se esté dentro de ese umbral y final cuando, una vez ya dentro, se salga
+                    if(!flag_inicio){
+                        acc_x = m.getAcc_X();
+                        acc_y = m.getAcc_Y();
+                        acc_z = m.getAcc_Z();
+                        if(Math.abs(acc_y) > 1){
+                            flag_inicio = true;
+                        }
+                    }
+
+                    if(flag_inicio && !flag_final) {
+                        acc_x = m.getAcc_X();
+                        acc_y = m.getAcc_Y();
+                        acc_z = m.getAcc_Z();
+                        if (Math.abs(acc_y) < 0.5) {
+                            flag_final = true;
+                        }
+                    }
+
+                    // Añadir el objeto a una lista cuando se entre en el umbral (no implementado aún)
+                    if(flag_inicio && !flag_final) {
+                        movimiento.add(m);
+                    }
 
                     NEW_MOV = false;
                     break;
