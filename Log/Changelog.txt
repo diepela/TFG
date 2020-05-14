@@ -7,3 +7,6 @@ Se hace mediante 2 flags.
 	Inicio -> acc_y supera el 1
 	Final -> acc_y baja de 0.5
 Falta realizar más pruebas para afinar esto, pero la app hace lo que se pide con estos umbrales.
+
+2020-05-14
+Actualizada la memoria, comparación entre wearables y apartados de SO Android y iOS.
