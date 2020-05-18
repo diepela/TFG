@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MiTenisApp</string>
+    <string name="app_name">TenisApp</string>
     <string name="devices">Dispositivos disponibles</string>
     <string name="action_settings">Configuración</string>
     <string name="users">Usuarios</string>

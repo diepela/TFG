@@ -8,8 +8,6 @@ public class Usuario {
     private String name;
     private Integer age;
     private String brazo;
-    // private Double weight;
-    // private Integer height;
 
 
     public Usuario(String name, Integer age, String brazo) {

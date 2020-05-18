@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:minHeight="?attr/actionBarSize"
-    app:navigationIcon="@mipmap/ic_launcher_foreground"
+    app:navigationIcon="@drawable/ic_tenis"
     android:scaleType="fitXY"
     app:title="@string/app_name"
     app:titleTextAppearance="@style/ToolbarTitleStyle"

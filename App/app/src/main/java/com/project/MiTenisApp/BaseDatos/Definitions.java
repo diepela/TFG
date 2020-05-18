@@ -6,10 +6,10 @@ public class Definitions {
 
     public static abstract class MovimientoEntry implements BaseColumns {
 
-        // Nombre de la tabla
+        // Nombre
         public static final String MOVS_TABLE = "MOVEMENTS";
 
-        // Columnas de la tabla
+        // Columnas
         public static final String MOV = "mov";
         public static final String TIMESTAMP = "timestamp";
         public static final String ACC_X= "ACC_X";
@@ -25,10 +25,10 @@ public class Definitions {
 
     public static abstract class GolpeEntry implements BaseColumns {
 
-        // Nombre de la tabla
+        // Nombre
         public static final String ACTS_TABLE = "GOLPES";
 
-        // Columnas de la tabla
+        // Columnas
         public static final String MOV = "mov";
         public static final String DATE = "date";
         public static final String TIME = "time";

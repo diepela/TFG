@@ -6,24 +6,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorWhite">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/imageLogo"
         android:layout_width="273dp"
         android:layout_height="304dp"
+        android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
+        android:layout_marginTop="100dp"
         android:src="@mipmap/ic_launcher_foreground" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image"
+        android:layout_below="@id/imageLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-50dp"
         android:text="@string/app_name"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorTenis"
         android:textSize="40sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageViewUPV"
+        android:layout_width="185dp"
+        android:layout_height="113dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="72dp"
+        android:layout_toStartOf="@+id/imageViewTeleco"
+        app:srcCompat="@drawable/ic_upv" />
+
+    <ImageView
+        android:id="@+id/imageViewTeleco"
+        android:layout_width="148dp"
+        android:layout_height="123dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="161dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="65dp"
+        app:srcCompat="@drawable/ic_teleco" />
 
 </RelativeLayout>

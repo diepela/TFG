@@ -30,7 +30,7 @@ public class MovementCursorAdapter  extends CursorAdapter {
             TextView idText = (TextView) view.findViewById(R.id.mov_id);
             TextView dateText = (TextView) view.findViewById(R.id.date);
             TextView timeText = (TextView) view.findViewById(R.id.time);
-            TextView timestampText = (TextView) view.findViewById(R.id.timestap_value);
+            TextView golpeText = (TextView) view.findViewById(R.id.golpe_value);
             TextView deviceText = (TextView) view.findViewById(R.id.device_value);
 
 
@@ -38,14 +38,14 @@ public class MovementCursorAdapter  extends CursorAdapter {
             String id = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry._ID));
             String date = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DATE));
             String time = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.TIME));
-            String timestamp = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DURATION));
+            String golpe = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.TIPO));
             String device = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DEVICE));
 
             // Asignar los valores a los elementos del layout
             idText.setText(id);
             dateText.setText(date);
             timeText.setText(time);
-            timestampText.setText(timestamp);
+            golpeText.setText(golpe);
             deviceText.setText(device);
 
         }

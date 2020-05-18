@@ -10,3 +10,12 @@ Falta realizar más pruebas para afinar esto, pero la app hace lo que se pide co
 
 2020-05-14
 Actualizada la memoria, comparación entre wearables y apartados de SO Android y iOS.
+
+2020-05-15
+Apartado de posibles soluciones terminado. 
+
+2020-05-16
+Avances en solución adoptada. Hardware terminado.
+
+2020-05-18
+Actualizaciones en app. Se ha avanzado en diseño, a falta de mejorar logo esto ya estaría casi terminado.
