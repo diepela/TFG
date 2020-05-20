@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">>
+
+    <item
+        android:id="@+id/action_detalles_golpe"
+        android:icon="@drawable/ic_new_activity"
+        android:title="@string/golpe_detalles"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_graficas_golpe"
+        android:icon="@drawable/ic_record"
+        android:title="@string/golpe_gráficas"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>

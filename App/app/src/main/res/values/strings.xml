@@ -7,9 +7,10 @@
     <string name="user_name">Nombre</string>
     <string name="user_age">Edad</string>
     <string name="user_brazo">Brazo dominante</string>
+    <string name="user_brazo2">Brazo dominante:</string>
     <string name="cancel">Cancelar</string>
     <string name="stop">Stop</string>
-    <string name="record">Historial</string>
+    <string name="record">Historial de golpes</string>
     <string name="title_activity_users">Users</string>
     <string name="register_activity">Registrar golpe</string>
     <string name="new_activity">Nuevo\ngolpe</string>
@@ -22,6 +23,13 @@
     <string name="searching">Buscando dispositivos...</string>
     <string name="noDevicesFound">No se han encontrado dispositivos</string>
     <string name="start_capture">Empezar\ncaptura</string>
+    <string name="golpe">Tipo de Golpe:</string>
+    <string name="valor">Valor</string>
+    <string name="registro">Registrado el: </string>
+    <string name="tenista">Realizado por: </string>
+    <string name="dispositivo">Dispositivo usado: </string>
+    <string name="golpe_detalles">Detalles</string>
+    <string name="golpe_gráficas">Gráficas</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

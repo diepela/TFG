@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -67,8 +69,10 @@ public class MovementDetailsActivity extends AppCompatActivity {
 
     // Definición de fragmentos
     final Fragment MovementDetails = new MovementDetailsFragment();
+    final Fragment MovementGraficas = new MovementGraficasFragment();
     final Fragment SaveActivity = new SaveActivityFragment();
     final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = MovementDetails;
 
     public MovementDetailsActivity() {
     }
@@ -103,8 +107,36 @@ public class MovementDetailsActivity extends AppCompatActivity {
         setTitle("Actividad " + mov);
 
         //Añadir un nuevo fragment
-        fm.beginTransaction().add(R.id.container_4, MovementDetails).commit();
+        fm.beginTransaction().add(R.id.container_4, MovementDetails, "2").hide(MovementGraficas).commit();
+        fm.beginTransaction().add(R.id.container_4, MovementDetails, "1").commit();
 
+        // Referencias a objetos del layout
+        BottomNavigationView bNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        //Evento de la barra inferior de navegación
+        bNavigation.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+                    @Override
+                    public boolean onNavigationItemSelected(@Nullable MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_detalles_golpe:
+                                fm.beginTransaction().hide(active).hide(MovementGraficas).show(MovementDetails).commit();
+                                active = MovementDetails;
+                                item.setChecked(true);
+                                break;
+
+                            case R.id.action_graficas_golpe:
+                                fm.beginTransaction().hide(active).show(MovementGraficas).hide(MovementDetails).commit();
+                                active = MovementGraficas;
+                                item.setChecked(true);
+                                Log.i("funca", "aqui se llega");
+                                break;
+                        }
+                        return false;
+                    }
+                });
+        bNavigation.setSelectedItemId(R.id.action_detalles_golpe);
     }
 
     /**

@@ -19,3 +19,6 @@ Avances en solución adoptada. Hardware terminado.
 
 2020-05-18
 Actualizaciones en app. Se ha avanzado en diseño, a falta de mejorar logo esto ya estaría casi terminado.
+
+2020-05-19
+Memoria: comenzado el apartado de Fundamentos Teóricos.
