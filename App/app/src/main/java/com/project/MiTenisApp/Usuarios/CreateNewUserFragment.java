@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
@@ -31,7 +32,7 @@ public class CreateNewUserFragment extends Fragment {
 
     private EditText mNameField;
     private EditText mAgeField;
-    private EditText mBrazoField;
+    private Spinner mBrazoField;
 
     /**
      *  Constructor vacío necesario
@@ -76,7 +77,7 @@ public class CreateNewUserFragment extends Fragment {
         FloatingActionButton mSaveButton = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         mNameField = (EditText) root.findViewById(R.id.user_name_text);
         mAgeField = (EditText) root.findViewById(R.id.user_age_text);
-        mBrazoField = (EditText) root.findViewById(R.id.user_brazo_text);
+        mBrazoField = (Spinner) root.findViewById(R.id.user_brazo_spinner);
 
         mDatabaseSQLHelper = new DatabaseSQLHelper(getActivity());
 
@@ -124,9 +125,7 @@ public class CreateNewUserFragment extends Fragment {
     private void showUser(Usuario user) {
         mNameField.setText(user.getName());
         mAgeField.setText(user.getAge().toString());
-        mBrazoField.setText(user.getBrazo());
-        // mWeightField.setText(user.getWeight().toString());
-        // mHeightField.setText(user.getHeight().toString());
+        // mBrazoField.setText(user.getBrazo());
     }
 
     /**
@@ -138,10 +137,7 @@ public class CreateNewUserFragment extends Fragment {
         //Capturar nueva información
         String name = mNameField.getText().toString();
         Integer age = Integer.parseInt(mAgeField.getText().toString());
-        String brazo = mBrazoField.getText().toString();
-
-        // Double weight = Double.parseDouble(mWeightField.getText().toString());
-        // Integer height = Integer.parseInt(mHeightField.getText().toString());
+        String brazo = mBrazoField.getSelectedItem().toString();
 
         //Actualizar variable
         mUserName=name;

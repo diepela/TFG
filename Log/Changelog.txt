@@ -22,3 +22,11 @@ Actualizaciones en app. Se ha avanzado en diseño, a falta de mejorar logo esto 
 
 2020-05-19
 Memoria: comenzado el apartado de Fundamentos Teóricos.
+
+2020-05-20
+App: Avances en diseño, ahora en detalles de golpe hay dos opciones, una detalles y tipo de golpe y otro la gráfica.
+Memoria: Se ha avanzado en fundamentos Teóricos, acabada la parte de Medida de la Orientación.
+
+2020-05-22
+App: Avances en diseño, elección de brazo dominante al registrarse/editar mediante Spinner. Se elimina posibilidad de introducción errónea de brazo.
+Memoria: Comenzado apartado de Representación, Ángulos Euler completado. 

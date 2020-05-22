@@ -95,16 +95,17 @@
             android:layout_marginStart="18dp"
             android:src="@drawable/ic_brazo" />
 
-        <EditText
-            android:id="@+id/user_brazo_text"
+        <Spinner
+            android:id="@+id/user_brazo_spinner"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="51dp"
             android:layout_marginEnd="16dp"
             android:background="@android:drawable/editbox_background"
+            android:entries="@array/brazo"
             android:fontFamily="@font/mandali"
             android:hint="@string/user_brazo"
-            android:inputType="text"
             android:textSize="18sp" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -15,10 +15,10 @@
     <string name="register_activity">Registrar golpe</string>
     <string name="new_activity">Nuevo\ngolpe</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="change_data">Modificar datos usuario</string>
-    <string name="change_user">Cambiar usuario</string>
+    <string name="change_data">Editar usuario</string>
+    <string name="change_user">Cerrar sesión</string>
     <string name="delete_user">Borrar usuario</string>
-    <string name="delete_data">Borrar datos</string>
+    <string name="delete_data">Borrar registros</string>
     <string name="connectingDevice">Conectando al dispositivo...</string>
     <string name="searching">Buscando dispositivos...</string>
     <string name="noDevicesFound">No se han encontrado dispositivos</string>
