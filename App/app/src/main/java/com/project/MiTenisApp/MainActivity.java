@@ -1,6 +1,5 @@
 package com.project.MiTenisApp;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,8 +19,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.project.MiTenisApp.BaseDatos.Golpe;
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
+import com.project.MiTenisApp.BaseDatos.Golpe;
 import com.project.MiTenisApp.BaseDatos.Movimiento;
 import com.project.MiTenisApp.Usuarios.CreateNewUser;
 import com.project.MiTenisApp.Usuarios.CreateNewUserFragment;
@@ -146,28 +145,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_download:
-                item.isEnabled();
 
-                //Comprobar si posee permiso de almacenamiento y si no pedir al usuario
-                if (this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(
-                            new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
-                }
-
-                boolean saved = downloadPersonalMovements(mUserId);
-
-                //Mostrar mensaje dependiendo de si se ha guardado con éxito o no
-                if(saved) {
-                    Toast.makeText(this,
-                            "Archivos generados correctamente", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this,
-                            "Error al generar los archivos", Toast.LENGTH_SHORT).show();
-                }
-
-                break;
 
             case R.id.action_change_user:
                 item.isEnabled();

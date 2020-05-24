@@ -6,120 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MovementDetailsFragment">
 
-    <TextView
-        android:id="@+id/register"
+    <Button
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:paddingTop="12dp"
-        android:text="@string/registro"
-        android:fontFamily="@font/mandali"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="30dp"
+        android:text="Quat X" />
 
-    <TextView
-        android:id="@+id/register_value"
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/register"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@id/register"
-        android:fontFamily="@font/mandali"
-        android:singleLine="true"
-        android:text="@string/valor"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:layout_below="@+id/button1"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="40dp"
+        android:text="Quat W" />
 
-    <TextView
-        android:id="@+id/by"
+    <Button
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register"
-        android:paddingTop="8dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/tenista"
-        android:fontFamily="@font/mandali"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        android:layout_below="@+id/button1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="70dp"
+        android:text="Quat Z" />
 
-    <TextView
-        android:id="@+id/by_value"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/by"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/by"
-        android:fontFamily="@font/mandali"
-        android:singleLine="true"
-        android:text="@string/valor"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/device"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/by"
-        android:paddingTop="8dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/dispositivo"
-        android:fontFamily="@font/mandali"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/device_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/device"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/device"
-        android:fontFamily="@font/mandali"
-        android:singleLine="true"
-        android:text="@string/valor"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/brazo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/device"
-        android:paddingTop="8dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/user_brazo2"
-        android:fontFamily="@font/mandali"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/brazo_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/brazo"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/brazo"
-        android:fontFamily="@font/mandali"
-        android:singleLine="true"
-        android:text="@string/valor"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="70dp"
+        android:text="Quat Y" />
 
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@id/brazo"
-        android:layout_marginTop="15dp"
+        android:layout_below="@id/button1"
+        android:layout_marginTop="125dp"
         android:layout_marginBottom="20dp">
 
     </com.github.mikephil.charting.charts.LineChart>

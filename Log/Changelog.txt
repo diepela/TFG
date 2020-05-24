@@ -30,3 +30,9 @@ Memoria: Se ha avanzado en fundamentos Teóricos, acabada la parte de Medida de 
 2020-05-22
 App: Avances en diseño, elección de brazo dominante al registrarse/editar mediante Spinner. Se elimina posibilidad de introducción errónea de brazo.
 Memoria: Comenzado apartado de Representación, Ángulos Euler completado. 
+
+2020-05-23
+App: Más avances en diseño, gráficas de Qx-y-w-z añadidas a detalles, se puede cambiar entre ellas con botones. Logotipo mejorado también.
+
+2020-05-23
+Memoria: Terminado BLE, Fundamentos Teóricos acabados.

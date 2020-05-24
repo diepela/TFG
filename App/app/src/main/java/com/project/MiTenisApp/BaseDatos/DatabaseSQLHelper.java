@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseSQLHelper extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 3;
-    public static final String DATABASE_NAME = "tenis.db";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "tenisv3.db";
 
     public DatabaseSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +47,7 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
                 + Definitions.GolpeEntry.DURATION + " DOUBLE NOT NULL,"
                 + Definitions.GolpeEntry.NAME + " TEXT NOT NULL,"
                 + Definitions.GolpeEntry.AGE + " INTEGER NOT NULL,"
-                + Definitions.GolpeEntry.BRAZO + "TEXT NOT NULL,"
+                + Definitions.GolpeEntry.BRAZO + " TEXT NOT NULL,"
                 + Definitions.GolpeEntry.TIPO + " TEXT NOT NULL);");
 
         mockData(db);

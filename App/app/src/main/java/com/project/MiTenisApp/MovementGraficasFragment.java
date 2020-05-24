@@ -3,30 +3,25 @@ package com.project.MiTenisApp;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-
-import java.util.ArrayList;
 
 public class MovementGraficasFragment extends Fragment {
 
     //Definición de variables
-    TextView mDate, mUser, mDevice, mBrazo;
+    Button Button1, Button2, Button3, Button4;
     LineChart mLineChart;
     MenuItem save, clear;
-
 
     /**
      *  Constructor vacío necesario
@@ -53,54 +48,72 @@ public class MovementGraficasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_activity_grafica, container, false);
 
         //Referencias a objetos del layout e inicialización
-        mDate = (TextView) view.findViewById(R.id.register_value);
-        mDate.setText(((MovementDetailsActivity)getActivity()).date);
+        Button1 = (Button) view.findViewById(R.id.button1);
+        Button2 = (Button) view.findViewById(R.id.button2);
+        Button3 = (Button) view.findViewById(R.id.button3);
+        Button4 = (Button) view.findViewById(R.id.button4);
 
-        mUser = (TextView) view.findViewById(R.id.by_value);
-        mUser.setText(((MovementDetailsActivity)getActivity()).user);
-
-        mDevice = (TextView) view.findViewById(R.id.device_value);
-        mDevice.setText(((MovementDetailsActivity)getActivity()).device);
-
-        mBrazo = (TextView) view.findViewById(R.id.brazo_value);
-        mBrazo.setText(((MovementDetailsActivity)getActivity()).brazo);
-
-        Log.i("funca", "aqui tb1");
-
-        //Definición e inicialización de la gráfica con los datos a representar
+        // Definición e inicialización de la gráfica con los datos a representar
         mLineChart = (LineChart) view.findViewById(R.id.lineChart);
+        mLineChart.setNoDataText("Pulsa un botón para ver su gráfica correspondiente");
 
-        LineDataSet set1 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatX, "quatX");
-        set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set1.setDrawCircleHole(false);
-        set1.setColor(Color.BLUE);
+        // Representamos la gráfica correspondiente al botón que se ha pulsado
 
-        LineDataSet set2 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatY, "quatY");
-        set2.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set2.setDrawCircleHole(false);
-        set2.setColor(Color.RED);
+        Button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LineDataSet set1 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatX, "quatX");
+                set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+                set1.setDrawCircleHole(false);
+                set1.setColor(Color.BLUE);
 
-        LineDataSet set3 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatW, "quatW");
-        set3.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set3.setDrawCircleHole(false);
-        set3.setColor(Color.GREEN);
+                LineData data = new LineData(set1);
+                mLineChart.setData(data);
+                mLineChart.invalidate();
+            }
+        });
 
-        LineDataSet set4 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatZ, "quatZ");
-        set4.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set4.setDrawCircleHole(false);
-        set4.setColor(Color.YELLOW);
+        Button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LineDataSet set2 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatY, "quatY");
+                set2.setAxisDependency(YAxis.AxisDependency.LEFT);
+                set2.setDrawCircleHole(false);
+                set2.setColor(Color.RED);
 
+                LineData data = new LineData(set2);
+                mLineChart.setData(data);
+                mLineChart.invalidate();
+            }
+        });
 
-        ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-        lineDataSets.add(set1);
-        //lineDataSets.add(set2);
-        //lineDataSets.add(set3);
-        //lineDataSets.add(set4);
+        Button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LineDataSet set3 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatW, "quatW");
+                set3.setAxisDependency(YAxis.AxisDependency.LEFT);
+                set3.setDrawCircleHole(false);
+                set3.setColor(Color.GREEN);
 
-        LineData data = new LineData(lineDataSets);
-        mLineChart.setData(data);
-        mLineChart.invalidate();
-        Log.i("funca", "aqui tb2");
+                LineData data = new LineData(set3);
+                mLineChart.setData(data);
+                mLineChart.invalidate();
+            }
+        });
+
+        Button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LineDataSet set4 = new LineDataSet(((MovementDetailsActivity)getActivity()).quatZ, "quatZ");
+                set4.setAxisDependency(YAxis.AxisDependency.LEFT);
+                set4.setDrawCircleHole(false);
+                set4.setColor(Color.YELLOW);
+
+                LineData data = new LineData(set4);
+                mLineChart.setData(data);
+                mLineChart.invalidate();
+            }
+        });
 
         return view;
     }
@@ -130,6 +143,7 @@ public class MovementGraficasFragment extends Fragment {
             clear.setEnabled(false);
         }
     }
+
 
 
 

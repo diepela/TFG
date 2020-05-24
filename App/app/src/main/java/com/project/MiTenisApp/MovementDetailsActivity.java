@@ -107,7 +107,7 @@ public class MovementDetailsActivity extends AppCompatActivity {
         setTitle("Actividad " + mov);
 
         //Añadir un nuevo fragment
-        fm.beginTransaction().add(R.id.container_4, MovementDetails, "2").hide(MovementGraficas).commit();
+        fm.beginTransaction().add(R.id.container_4, MovementGraficas, "2").hide(MovementGraficas).commit();
         fm.beginTransaction().add(R.id.container_4, MovementDetails, "1").commit();
 
         // Referencias a objetos del layout

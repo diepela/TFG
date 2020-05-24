@@ -93,7 +93,10 @@ public class newMovementFragment extends Fragment {
                         //Si no está pulsado
                         startButton.setText(R.string.start_capture);
                         circularProgressBar.setVisibility(View.INVISIBLE);
-                        stopActivity();
+                        millisEnd = Calendar.getInstance().getTimeInMillis();
+                        String mov = ((ScanActivity)getActivity()).toDatabase((millisEnd-millisStart)/1000.0);
+                        ((ScanActivity)getActivity()).disableNotifications(ScanActivity.mBleGatt);
+                        showDetailActivity(mov);
                     }
                 }
             });
@@ -158,14 +161,5 @@ public class newMovementFragment extends Fragment {
         }
     }
 
-    /**
-     * Método para parar el registro del golpe
-     * */
-    public void stopActivity(){
-        millisEnd = Calendar.getInstance().getTimeInMillis();
-        String mov = ((ScanActivity)getActivity()).toDatabase((millisEnd-millisStart)/1000.0);
-        ((ScanActivity)getActivity()).disableNotifications(ScanActivity.mBleGatt);
-        showDetailActivity(mov);
-    }
 
 }
