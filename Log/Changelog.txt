@@ -33,6 +33,9 @@ Memoria: Comenzado apartado de Representación, Ángulos Euler completado.
 
 2020-05-23
 App: Más avances en diseño, gráficas de Qx-y-w-z añadidas a detalles, se puede cambiar entre ellas con botones. Logotipo mejorado también.
-
-2020-05-23
 Memoria: Terminado BLE, Fundamentos Teóricos acabados.
+
+2020-05-24
+App: Arreglos en diseño y base de datos, cosas que no había realizado aún.
+Añadido el proyecto del vídeo que he hecho para pasárselo a los tutores. Vídeo realizado usando esta App, no la de test.
+
