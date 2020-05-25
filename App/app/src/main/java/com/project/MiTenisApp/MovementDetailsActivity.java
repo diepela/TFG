@@ -50,16 +50,12 @@ public class MovementDetailsActivity extends AppCompatActivity {
     Float mag_y;
     Float mag_z;
 
-    // Acc de prueba
-    ArrayList<Entry> AccX = new ArrayList<>();
-    ArrayList<Entry> AccY = new ArrayList<>();
-    ArrayList<Entry> AccZ = new ArrayList<>();
-
     // Donde se almacenará el cuaternión tras pasar por Madgwick
     float[] quaternion;
+    float[] qF = new float[4];
 
     // Objeto Madgwick (Beta 0.041 valor recomendado, habrá que hacer pruebas)
-    private MadgwickAHRS mMadgwickAHRS = new MadgwickAHRS(0.2f, 0.041f);
+    private MadgwickAHRS mMadgwickAHRS = new MadgwickAHRS(0.02f, 0.041f);
 
     // Arrays donde meteremos los ejes del cuaternión
     ArrayList<Entry> quatX = new ArrayList<>();
@@ -99,6 +95,11 @@ public class MovementDetailsActivity extends AppCompatActivity {
         //Obtener los movimientos y la actividad a representar
         getMovements();
         getActivity();
+        Log.i("qf-x", ""+qF[0]);
+        Log.i("qf-y", ""+qF[1]);
+        Log.i("qf-w", ""+qF[2]);
+        Log.i("qf-z", ""+qF[3]);
+        detectarGolpe();        // Con los datos de Madgwick detectamos qué tipo de golpe se ha realizado
 
         //Definición e inicialización de la barra de herramientas
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_3);
@@ -130,7 +131,6 @@ public class MovementDetailsActivity extends AppCompatActivity {
                                 fm.beginTransaction().hide(active).show(MovementGraficas).hide(MovementDetails).commit();
                                 active = MovementGraficas;
                                 item.setChecked(true);
-                                Log.i("funca", "aqui se llega");
                                 break;
                         }
                         return false;
@@ -190,10 +190,10 @@ public class MovementDetailsActivity extends AppCompatActivity {
             //Mostrar mensaje dependiendo de si se ha eliminado con éxito o no
             if(saved) {
                 Toast.makeText(this,
-                        "Actividad eliminada correctamente", Toast.LENGTH_SHORT).show();
+                        "Golpe eliminado correctamente", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(this,
-                        "Error al eliminar la actividad", Toast.LENGTH_SHORT).show();
+                        "Error al eliminar el golpe", Toast.LENGTH_SHORT).show();
             }
             this.finish();
             return true;
@@ -264,11 +264,6 @@ public class MovementDetailsActivity extends AppCompatActivity {
                 mag_y = m.getMag_Y().floatValue();
                 mag_z = m.getMag_Z().floatValue();
 
-                // Prueba
-                AccX.add(new Entry(m.getTimestamp(), acc_x));
-                AccY.add(new Entry(m.getTimestamp(), acc_y));
-                AccZ.add(new Entry(m.getTimestamp(), acc_z));
-
 
                 // Le pasamos a la clase AHRS los valores obtenidos para que haga lo suyo
                 // y nos actualice el quaternion
@@ -288,7 +283,33 @@ public class MovementDetailsActivity extends AppCompatActivity {
                 Log.i("loko", ""+prueba);
 
             } while(c.moveToNext());
+
+            // Obtenemos el valor final del cuaternión
+            qF = quaternion;
         }
+    }
+
+    /**
+     * Aquí realizamos las operaciones para obtener el tipo de golpe
+     * Utilizamos el valor final del cuaternión para ello, mediante
+     * umbrales
+     */
+
+    public void detectarGolpe(){
+
+        if(tipoGolpe.equals("Sin analizar")) {
+            if((qF[0] < 0.60 && qF[0] > 0.25) && (qF[1] < -0.4 && qF[1] > -0.75) && (qF[2] < -0.47 && qF[2] > -0.65) && (qF[3] < -0.125 && qF[3] > -0.55)){
+                tipoGolpe = "Derecha";
+            } else if((qF[0] < 0.75 && qF[0] > 0.45) && (qF[1] < -0.15 && qF[1] > -0.35) && (qF[2] < -0.6 && qF[2] > -0.95) && (qF[3] < 0.2 && qF[3] > -0.1)){
+                tipoGolpe = "Revés";
+            } else {
+                tipoGolpe = "Mala detección";
+            }
+
+            int prueba = mDatabaseSQLHelper.updateGolpe(tipoGolpe, ID);
+            Log.i("loko", "" + prueba);
+        }
+
     }
 
     /**

@@ -65,6 +65,8 @@ public class MovementDetailsFragment extends Fragment {
             img.setImageResource(R.drawable.federer_drive);
         } else if(golpe.equals("Revés")){
             img.setImageResource(R.drawable.federer_reves);
+        } else if(golpe.equals("Mala detección")){
+            img.setImageResource(R.drawable.error);
         }
 
         return view;

@@ -39,3 +39,7 @@ Memoria: Terminado BLE, Fundamentos Teóricos acabados.
 App: Arreglos en diseño y base de datos, cosas que no había realizado aún.
 Añadido el proyecto del vídeo que he hecho para pasárselo a los tutores. Vídeo realizado usando esta App, no la de test.
 
+2020-05-25
+Memoria: Comenzada la parte de desarrollo de la aplicación. 
+App: Detección de tipo de golpe IMPLEMENTADA. Falta afinar umbrales. 
+
