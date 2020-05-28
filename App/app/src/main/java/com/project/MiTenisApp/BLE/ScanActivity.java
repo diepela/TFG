@@ -19,6 +19,7 @@ import android.bluetooth.le.ScanResult;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
@@ -70,6 +71,8 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     // Variables para detección de golpe
     boolean flag_inicio = false;
     boolean flag_final = false;
+    boolean flag_pico = false;
+    boolean flag_golpe = false;
     double acc_x;
     double acc_y;
     double acc_z;
@@ -882,6 +885,10 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     public void reset(){
         mov = null;
         movimiento.clear();
+        flag_inicio = false;
+        flag_final = false;
+        flag_pico = false;
+        flag_golpe = false;
     }
 
     /**
@@ -912,6 +919,21 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
         //newMovementFragment n = newMovementFragment.newInstance();
     }
 
+    /**
+     * Método para obtener el valor del SharedPrefs
+     */
+    public boolean isMultiple(){
+        SharedPreferences prefs = this.getSharedPreferences("multiple", Context.MODE_PRIVATE);
+        boolean multiple = prefs.getBoolean("multiple", false);
+        return multiple;
+    }
+
+    /**
+     * Método para comenzar un nuevo golpe en caso de que haya registro múltiple
+     */
+    public void nuevoGolpe(){
+        flag_golpe = true;
+    }
 
 
     /*
@@ -932,14 +954,14 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
 
                     characteristic = (BluetoothGattCharacteristic) msg.obj;
                     if(characteristic.getValue() == null){
-                        Log.w("FIT APP", "Error obtaining movement values");
+                        Log.w("conexion", "Error obtaining movement values");
                         return;
                     }
 
                     // Crear identificador de nueva actividad
                     if(NEW_MOV) {
-                        SimpleDateFormat data = new SimpleDateFormat("ddMMyyyyHHmm", Locale.getDefault());
-                        mov =  data.format(new Date());
+                        SimpleDateFormat data = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+                        mov = data.format(new Date());
                     }
 
                     // Crear objeto de la clase Movimiento a partir de los datos obtenidos
@@ -952,30 +974,49 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
                         acc_x = m.getAcc_X();
                         acc_y = m.getAcc_Y();
                         acc_z = m.getAcc_Z();
-                        if(Math.abs(acc_y) > 1){
+                        if((acc_x < -0.5) || (acc_y < -1.2) || (acc_z < -0.1)){
                             flag_inicio = true;
                         }
                     }
 
-                    if(flag_inicio && !flag_final) {
-                        acc_x = m.getAcc_X();
+                    if(flag_inicio && !flag_pico){
                         acc_y = m.getAcc_Y();
-                        acc_z = m.getAcc_Z();
-                        if (Math.abs(acc_y) < 0.5) {
-                            flag_final = true;
+                        if(Math.abs(acc_y) > 3){
+                            flag_pico = true;
                         }
                     }
 
-                    // Añadir el objeto a una lista cuando se entre en el umbral (no implementado aún)
-                    if(flag_inicio && !flag_final) {
+                    if(flag_pico && !flag_final) {
+                        acc_x = m.getAcc_X();
+                        acc_y = m.getAcc_Y();
+                        acc_z = m.getAcc_Z();
+                        if(Math.abs(acc_y) < 1){
+                            flag_final = true;
+                            //if ((acc_x < -0.15 && acc_x > -0.75) && (acc_y < 0.25 && acc_y > -0.75) && (acc_z < 0.7 && acc_z > 0)) {
+                            // flag_final = true;
+                        }
+                    }
+
+                    // Añadir el objeto a una lista cuando se entre en el umbral
+                    if(flag_inicio && !flag_final){
                         movimiento.add(m);
+                    }
+
+                    if(isMultiple()) {
+                        if (flag_golpe) {
+                            //Log.i("flagreset13", ""+flag_inicio+flag_pico+flag_final+flag_golpe);
+                            reset();
+                            //Log.i("flagreset13", ""+flag_inicio+flag_pico+flag_final+flag_golpe);
+                            NEW_MOV = true;
+                            break;
+                        }
                     }
 
                     NEW_MOV = false;
                     break;
 
                 case MSG_DISMISS:
-                   break;
+                    break;
 
             }
         }

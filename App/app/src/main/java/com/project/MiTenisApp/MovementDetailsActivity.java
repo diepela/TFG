@@ -277,11 +277,6 @@ public class MovementDetailsActivity extends AppCompatActivity {
                 quatW.add(new Entry(m.getTimestamp(), quaternion[2]));
                 quatZ.add(new Entry(m.getTimestamp(), quaternion[3]));
 
-                // Aquí realizamos las operaciones para obtener el tipo de golpe que es
-                tipoGolpe = "Derecha";
-                int prueba = mDatabaseSQLHelper.updateGolpe(tipoGolpe, ID);
-                Log.i("loko", ""+prueba);
-
             } while(c.moveToNext());
 
             // Obtenemos el valor final del cuaternión
@@ -307,7 +302,6 @@ public class MovementDetailsActivity extends AppCompatActivity {
             }
 
             int prueba = mDatabaseSQLHelper.updateGolpe(tipoGolpe, ID);
-            Log.i("loko", "" + prueba);
         }
 
     }

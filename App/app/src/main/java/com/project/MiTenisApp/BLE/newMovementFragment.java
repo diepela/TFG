@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.project.MiTenisApp.MovementDetailsActivity;
@@ -26,7 +28,9 @@ public class newMovementFragment extends Fragment {
     private ProgressBar circularProgressBar;
     private ToggleButton startButton;
     private Button cancelButton;
+    private Button multipleButton;
     private MenuItem mRefreshItem = null;
+    private boolean multiple;
     long millisStart;
     long millisEnd;
 
@@ -70,12 +74,20 @@ public class newMovementFragment extends Fragment {
        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         if (view != null) {
+            // Obtenemos el valor de si es múltiple o no
+            multiple = ((ScanActivity)getActivity()).isMultiple();
+
             // Referencias a elementos del layout e inicialización
             startButton = (ToggleButton) view.findViewById(R.id.start_button);
             cancelButton = (Button) view.findViewById(R.id.cancel_button);
             circularProgressBar = (ProgressBar) view.findViewById(R.id.circularProgress);
             startButton.setChecked(false);
             startButton.setText(R.string.start_capture);
+            multipleButton = (Button) view.findViewById(R.id.multiple_button);
+            multipleButton.setVisibility(View.INVISIBLE);
+            if(multiple){
+                multipleButton.setVisibility(View.VISIBLE);
+            }
 
             //Evento del botón
             startButton.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +101,18 @@ public class newMovementFragment extends Fragment {
                         ((ScanActivity)getActivity()).enableNotificationsAndConfigureSensors();
                          millisStart = Calendar.getInstance().getTimeInMillis();
 
+                         multipleButton.setOnClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 Toast.makeText((getActivity()), "Nuevo golpe", Toast.LENGTH_SHORT).show();
+                                 millisEnd = Calendar.getInstance().getTimeInMillis();
+                                 String mov = ((ScanActivity)getActivity()).toDatabase((millisEnd-millisStart)/1000.0);
+                                 Log.i("nuse", ""+mov);
+                                 ((ScanActivity)getActivity()).nuevoGolpe();
+                                 millisStart = Calendar.getInstance().getTimeInMillis();
+                             }
+                         });
+
                     }else{
                         //Si no está pulsado
                         startButton.setText(R.string.start_capture);
@@ -96,7 +120,11 @@ public class newMovementFragment extends Fragment {
                         millisEnd = Calendar.getInstance().getTimeInMillis();
                         String mov = ((ScanActivity)getActivity()).toDatabase((millisEnd-millisStart)/1000.0);
                         ((ScanActivity)getActivity()).disableNotifications(ScanActivity.mBleGatt);
-                        showDetailActivity(mov);
+                        if(!multiple) {
+                            showDetailActivity(mov);
+                        } else{
+                            getActivity().finish();
+                        }
                     }
                 }
             });

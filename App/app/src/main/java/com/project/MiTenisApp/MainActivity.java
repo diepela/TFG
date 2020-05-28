@@ -17,6 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
@@ -39,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_USER_NAME= "extra_user_name";
     private static final int PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private DatabaseSQLHelper mDatabaseSQLHelper;
+    public boolean multiple = false;
+    private Switch mSwitch;
+    private TextView mText;
 
     //Definición de fragments
     final Fragment registerActivity = new RegisterActivityFragment();
@@ -72,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         myToolbar.setTitle(mUserName);
         myToolbar.setTitleTextColor(getColor(R.color.colorPrimaryDark));
+        mSwitch = (Switch) findViewById(R.id.switch_golpe);
+        mText = (TextView) findViewById(R.id.textView2);
 
         //Añadir los fragments a usar y establecer el activo
         fm.beginTransaction().add(R.id.main_container, records, "2").hide(records).commit();
@@ -91,18 +100,36 @@ public class MainActivity extends AppCompatActivity {
                                 fm.beginTransaction().hide(active).hide(records).show(registerActivity).commit();
                                 active = registerActivity;
                                 item.setChecked(true);
+                                mSwitch.setVisibility(View.VISIBLE);
+                                mText.setVisibility(View.VISIBLE);
                                 break;
 
                             case R.id.action_record:
                                 fm.beginTransaction().hide(active).show(records).hide(registerActivity).commit();
                                 active = records;
                                 item.setChecked(true);
+                                mSwitch.setVisibility(View.INVISIBLE);
+                                mText.setVisibility(View.INVISIBLE);
                                 break;
                         }
                         return false;
                     }
                 });
         bNavigation.setSelectedItemId(R.id.action_register_activity);
+
+        // Evento del switch (guardar si queremos golpe múltiple o no
+        mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    multiple = true;
+
+                }
+                else {
+                    multiple = false;
+                }
+            }
+        });
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.project.MiTenisApp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ public class RegisterActivityFragment extends Fragment {
 
     //Definición de variables
     private Button mNewActivity;
+    private boolean multiple;
 
     /**
      *  Constructor vacío necesario
@@ -55,6 +58,13 @@ public class RegisterActivityFragment extends Fragment {
         mNewActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Actualizar el SharedPref
+                multiple = ((MainActivity)getActivity()).multiple;
+                SharedPreferences prefs = (getActivity()).getSharedPreferences("multiple", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean("multiple", multiple);
+                editor.commit();
+
                 //Empezar una nueva actividad
                 NewRegisterActivity();
             }

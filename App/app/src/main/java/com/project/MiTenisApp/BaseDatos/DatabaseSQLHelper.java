@@ -20,8 +20,6 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
                 + Definitions.UsuarioEntry.FIELD_NAME + " TEXT NOT NULL,"
                 + Definitions.UsuarioEntry.FIELD_AGE + " INTEGER NOT NULL,"
                 + Definitions.UsuarioEntry.FIELD_BRAZO + " TEXT NOT NULL);");
-                // + Definitions.UsuarioEntry.FIELD_WEIGHT + " DOUBLE NOT NULL,"
-                // + Definitions.UsuarioEntry.FIELD_HEIGHT + " INTEGER NOT NULL);");
 
         db.execSQL("CREATE TABLE " + Definitions.MovimientoEntry.MOVS_TABLE + " ("
                 + Definitions.MovimientoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"

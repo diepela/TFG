@@ -43,3 +43,6 @@ Añadido el proyecto del vídeo que he hecho para pasárselo a los tutores. Víd
 Memoria: Comenzada la parte de desarrollo de la aplicación. 
 App: Detección de tipo de golpe IMPLEMENTADA. Falta afinar umbrales. 
 
+2020-05-27
+Memoria: Base de datos explicada.
+
