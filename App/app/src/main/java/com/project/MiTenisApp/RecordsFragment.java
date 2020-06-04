@@ -1,7 +1,5 @@
 package com.project.MiTenisApp;
 
-
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,8 +12,6 @@ import android.widget.ListView;
 
 import com.project.MiTenisApp.BaseDatos.DatabaseSQLHelper;
 import com.project.MiTenisApp.BaseDatos.Definitions;
-
-
 
 public class RecordsFragment extends Fragment {
 
@@ -46,31 +42,31 @@ public class RecordsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Definir el layout a usar
+        // Definir el layout a usar
         View view = inflater.inflate(R.layout.fragment_records, container, false);
 
-        //Nueva instancia de conexión a la base de datos
+        // Nueva instancia de conexión a la base de datos
         mDatabaseSQLHelper = new DatabaseSQLHelper(getContext());
 
-        //Referencias a objetos del layout
+        // Referencias a objetos del layout
         mListView = (ListView) view.findViewById(R.id.records_ListView);
 
-        //Creación de un nuevo adaptador de cursor de la clase MovementCursorAdapter
+        // Creación de un nuevo adaptador de cursor de la clase MovementCursorAdapter
         mMovementAdapter = new MovementCursorAdapter(getActivity(),null);
 
-        //Inicialización de la lista con el adaptador
+        // Inicialización de la lista con el adaptador
         mListView.setAdapter(mMovementAdapter);
 
-        //Carga de datos en el adaptador
+        // Carga de datos en el adaptador
         loadActivities();
 
-        //Evento al seleccionar un movimiento de la lista
+        // Evento al seleccionar un movimiento de la lista
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Cursor currentItem = (Cursor) mMovementAdapter.getItem(i);
                 String id = currentItem.getString(currentItem.getColumnIndex(Definitions.GolpeEntry.MOV));
-                //Empezar una nueva actividad
+                // Empezar una nueva actividad
                 showDetailActivity(id);
             }
         });

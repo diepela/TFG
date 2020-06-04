@@ -59,13 +59,8 @@ public class RegisterActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Actualizar el SharedPref
-                multiple = ((MainActivity)getActivity()).multiple;
-                SharedPreferences prefs = (getActivity()).getSharedPreferences("multiple", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean("multiple", multiple);
-                editor.commit();
-
-                //Empezar una nueva actividad
+                MultipleToShared();
+                // Empezar una nueva actividad
                 NewRegisterActivity();
             }
         });
@@ -80,6 +75,14 @@ public class RegisterActivityFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ScanActivity.class);
         intent.putExtra(MainActivity.EXTRA_USER_ID,  ((MainActivity)getActivity()).mUserId);
         startActivity(intent);
+    }
+
+    private void MultipleToShared(){
+        multiple = ((MainActivity)getActivity()).multiple;
+        SharedPreferences prefs = (getActivity()).getSharedPreferences("multiple", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("multiple", multiple);
+        editor.commit();
     }
 
 

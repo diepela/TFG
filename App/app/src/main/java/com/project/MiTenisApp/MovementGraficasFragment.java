@@ -18,7 +18,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 public class MovementGraficasFragment extends Fragment {
 
-    //Definición de variables
+    // Definición de variables
     Button Button1, Button2, Button3, Button4;
     LineChart mLineChart;
     MenuItem save, clear;
@@ -44,7 +44,7 @@ public class MovementGraficasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Definir el layout a usar
+        // Definir el layout a usar
         View view = inflater.inflate(R.layout.fragment_activity_grafica, container, false);
 
         //Referencias a objetos del layout e inicialización

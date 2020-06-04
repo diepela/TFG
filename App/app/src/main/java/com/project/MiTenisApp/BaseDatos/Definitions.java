@@ -35,6 +35,8 @@ public class Definitions {
         public static final String DEVICE = "device";
         public static final String USER_ID = "user_id";
         public static final String DURATION = "duration";
+        public static final String MULT = "multiple";
+        public static final String IND = "indice";
         public static final String NAME = "name";
         public static final String AGE = "age";
         public static final String BRAZO = "brazo";

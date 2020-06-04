@@ -34,7 +34,8 @@ public class MovementDetailsActivity extends AppCompatActivity {
     public String ID;
 
     DatabaseSQLHelper mDatabaseSQLHelper;
-    String date, user, age, brazo, tipoGolpe, device, mov, duration;
+    String date, user, age, brazo, tipoGolpe, device, mov, duration, multiple;
+    Integer indice;
     MenuItem save;
 
     // Variables para obtener datos medidos
@@ -167,7 +168,7 @@ public class MovementDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (save != null) {
-            //Habilitar el botón de guardado en el menú
+            // Habilitar el botón de guardado en el menú
             save.setEnabled(true);
         }
         return super.onPrepareOptionsMenu(menu);
@@ -180,14 +181,14 @@ public class MovementDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.ic_save) {
-            //Cambiar de fragment al pulsar el botón de guardar
-            fm.beginTransaction().add(R.id.container_4,SaveActivity).hide(MovementDetails).commit();
+            // Cambiar de fragment al pulsar el botón de guardar
+            fm.beginTransaction().add(R.id.container_4, SaveActivity).hide(MovementDetails).commit();
             return true;
         }
 
         if (id == R.id.ic_clear) {
             boolean saved = deleteActivity();
-            //Mostrar mensaje dependiendo de si se ha eliminado con éxito o no
+            // Mostrar mensaje dependiendo de si se ha eliminado con éxito o no
             if(saved) {
                 Toast.makeText(this,
                         "Golpe eliminado correctamente", Toast.LENGTH_SHORT).show();
@@ -238,6 +239,8 @@ public class MovementDetailsActivity extends AppCompatActivity {
             mov = g.getId().toString();
             device = g.getDevice();
             duration = g.getDuration().toString();
+            multiple = g.getMultiple();
+            indice = g.getIndice();
         }
     }
 
@@ -247,7 +250,7 @@ public class MovementDetailsActivity extends AppCompatActivity {
     private void getMovements(){
         Cursor c= mDatabaseSQLHelper.getMovementsByActivityId(ID);
         if (c.moveToFirst()) {
-            //Recorrer el cursor hasta que no haya más registros
+            // Recorrer el cursor hasta que no haya más registros
             do {
                 Movimiento m = new Movimiento(c);
 
@@ -293,14 +296,27 @@ public class MovementDetailsActivity extends AppCompatActivity {
     public void detectarGolpe(){
 
         if(tipoGolpe.equals("Sin analizar")) {
-            if((qF[0] < 0.60 && qF[0] > 0.25) && (qF[1] < -0.4 && qF[1] > -0.75) && (qF[2] < -0.47 && qF[2] > -0.65) && (qF[3] < -0.125 && qF[3] > -0.55)){
-                tipoGolpe = "Derecha";
-            } else if((qF[0] < 0.75 && qF[0] > 0.45) && (qF[1] < -0.15 && qF[1] > -0.35) && (qF[2] < -0.6 && qF[2] > -0.95) && (qF[3] < 0.2 && qF[3] > -0.1)){
-                tipoGolpe = "Revés";
-            } else {
-                tipoGolpe = "Mala detección";
+            if (brazo.equals("Derecho")) {
+                if ((qF[0] < 0.6 && qF[0] > 0.35) && (qF[1] < -0.2 && qF[1] > -0.5) && (qF[2] < -0.55 && qF[2] > -0.78) && (qF[3] < -0.15 && qF[3] > -0.35)) {
+                    tipoGolpe = "Saque";
+                } else if ((qF[0] < 0.75 && qF[0] > 0.35) && (qF[1] < -0.15 && qF[1] > -0.4) && (qF[2] < -0.6 && qF[2] > -1) && (qF[3] < 0.2 && qF[3] > -0.2)) {
+                    tipoGolpe = "Revés";
+                } else if ((qF[0] < 0.50 && qF[0] > 0.25) && (qF[1] < -0.5 && qF[1] > -0.78) && (qF[2] < -0.38 && qF[2] > -0.85) && (qF[3] < -0.125 && qF[3] > -0.55)) {
+                    tipoGolpe = "Derecha";
+                } else {
+                    tipoGolpe = "Mala detección";
+                }
+            } else if (brazo.equals("Izquierdo")) {
+                if ((qF[0] < 0.6 && qF[0] > 0.35) && (qF[1] < -0.2 && qF[1] > -0.5) && (qF[2] < -0.55 && qF[2] > -0.78) && (qF[3] < -0.15 && qF[3] > -0.35)) {
+                    tipoGolpe = "Saque";
+                } else if ((qF[0] < 0.75 && qF[0] > 0.35) && (qF[1] < -0.15 && qF[1] > -0.4) && (qF[2] < -0.6 && qF[2] > -1) && (qF[3] < 0.2 && qF[3] > -0.2)) {
+                    tipoGolpe = "Revés";
+                } else if ((qF[0] < 0.50 && qF[0] > 0.25) && (qF[1] < -0.5 && qF[1] > -0.78) && (qF[2] < -0.38 && qF[2] > -0.85) && (qF[3] < -0.125 && qF[3] > -0.55)) {
+                    tipoGolpe = "Derecha";
+                } else {
+                    tipoGolpe = "Mala detección";
+                }
             }
-
             int prueba = mDatabaseSQLHelper.updateGolpe(tipoGolpe, ID);
         }
 
@@ -326,7 +342,7 @@ public class MovementDetailsActivity extends AppCompatActivity {
                     do {
                         //Definición de la cabecera
                         if(first){
-                            fw.write("Actividad:" + "," + mov + "," + "," + "," + "Usuario:" +  "," + user + NEXT_LINE);
+                            fw.write("Golpe:" + "," + mov + "," + "," + "," + "Usuario:" +  "," + user + NEXT_LINE);
                             fw.write("Fecha y hora:" + "," + date + "," + "," + "Edad:" +  "," + age + NEXT_LINE);
                             fw.write("Dispositivo:" + "," + device + "," + "," + "," + "Brazo dominante:" +  "," + brazo + NEXT_LINE);
                             fw.write("Duracion (s): " + "," + duration + "," + "," + "," + "Tipo de golpe: " + tipoGolpe + NEXT_LINE + NEXT_LINE);

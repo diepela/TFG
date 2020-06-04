@@ -36,7 +36,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Definición de variables
+    // Definición de variables
     public String mUserId;
     public String mUserName;
     public static final String EXTRA_USER_ID = "extra_user_id";
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private Switch mSwitch;
     private TextView mText;
 
-    //Definición de fragments
+    // Definición de fragments
     final Fragment registerActivity = new RegisterActivityFragment();
     final Fragment records = new RecordsFragment();
     final FragmentManager fm = getSupportFragmentManager();
@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Definir el layout a usar
+        // Definir el layout a usar
         setContentView(R.layout.activity_main);
 
-        //Obtener los datos de la actividad anterior
+        // Obtener los datos de la actividad anterior
         Intent i = getIntent();
         Bundle b = i.getExtras();
         if (b != null) {
@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
           mUserId = b.getString(EXTRA_USER_ID);
         }
 
-        //Nueva instancia de conexión a la base de datos
+        // Nueva instancia de conexión a la base de datos
         mDatabaseSQLHelper = new DatabaseSQLHelper(this);
 
-        //Definición e inicialización de la barra de herramientas
+        // Definición e inicialización de la barra de herramientas
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_user);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle(mUserName);
@@ -82,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
         mSwitch = (Switch) findViewById(R.id.switch_golpe);
         mText = (TextView) findViewById(R.id.textView2);
 
-        //Añadir los fragments a usar y establecer el activo
+        // Añadir los fragments a usar y establecer el activo
         fm.beginTransaction().add(R.id.main_container, records, "2").hide(records).commit();
         fm.beginTransaction().add(R.id.main_container,registerActivity, "1").commit();
 
-        //Referencias a objetos del layout
+        // Referencias a objetos del layout
         BottomNavigationView bNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-        //Evento de la barra inferior de navegación
+        // Evento de la barra inferior de navegación
         bNavigation.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
 
             case R.id.action_change_user:
                 item.isEnabled();

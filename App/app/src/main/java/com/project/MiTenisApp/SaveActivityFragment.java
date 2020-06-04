@@ -57,21 +57,21 @@ public class SaveActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Definir el layout a usar
+        // Definir el layout a usar
         View view= inflater.inflate(R.layout.fragment_save_activity, container, false);
 
         // Mostrar barra de herramientas
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Referencias a objetos del layout
+        // Referencias a objetos del layout
         FloatingActionButton mDownloadButton = (FloatingActionButton) view.findViewById(R.id.download);
         mNameFile = (EditText) view.findViewById(R.id.file_name_text);
 
-        //Definir nombre de archivo por defecto
+        // Definir nombre de archivo por defecto
         mNameFile.setText(((MovementDetailsActivity)getActivity()).ID);
 
-        //Comprobar si posee permiso de almacenamiento y si no pedir al usuario
+        // Comprobar si posee permiso de almacenamiento y si no pedir al usuario
         if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
                     new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -82,13 +82,13 @@ public class SaveActivityFragment extends Fragment {
         mDownloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Capturar nuevo nombre de archivo
+                // Capturar nuevo nombre de archivo
                 name_file = mNameFile.getText().toString();
 
-                //Generar fichero con los datos
+                // Generar fichero con los datos
                 boolean saved = ((MovementDetailsActivity)getActivity()).saveActivity(name_file);
 
-                //Mostrar mensaje dependiendo de si se ha guardado con éxito o no
+                // Mostrar mensaje dependiendo de si se ha guardado con éxito o no
                 if(saved) {
                     Toast.makeText(getActivity(),
                             "Archivo generado", Toast.LENGTH_SHORT).show();
@@ -97,7 +97,7 @@ public class SaveActivityFragment extends Fragment {
                             "Error al generar archivo", Toast.LENGTH_SHORT).show();
                 }
 
-                //Finalizar la actividad
+                // Finalizar la actividad
                 getActivity().finish();
             }
         });

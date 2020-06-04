@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseSQLHelper extends SQLiteOpenHelper{
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "tenisv3.db";
+    public static final String DATABASE_NAME = "tenisv4.db";
 
     public DatabaseSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,6 +43,8 @@ public class DatabaseSQLHelper extends SQLiteOpenHelper{
                 + Definitions.GolpeEntry.DEVICE + " TEXT NOT NULL,"
                 + Definitions.GolpeEntry.USER_ID + " TEXT NOT NULL,"
                 + Definitions.GolpeEntry.DURATION + " DOUBLE NOT NULL,"
+                + Definitions.GolpeEntry.MULT + " TEXT NOT NULL,"
+                + Definitions.GolpeEntry.IND + " INTEGER NOT NULL,"
                 + Definitions.GolpeEntry.NAME + " TEXT NOT NULL,"
                 + Definitions.GolpeEntry.AGE + " INTEGER NOT NULL,"
                 + Definitions.GolpeEntry.BRAZO + " TEXT NOT NULL,"

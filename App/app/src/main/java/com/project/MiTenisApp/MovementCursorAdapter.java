@@ -28,10 +28,12 @@ public class MovementCursorAdapter  extends CursorAdapter {
 
             // Referencias a elementos del layout
             TextView idText = (TextView) view.findViewById(R.id.mov_id);
+            TextView multText = (TextView) view.findViewById(R.id.mult_id);
             TextView dateText = (TextView) view.findViewById(R.id.date);
             TextView timeText = (TextView) view.findViewById(R.id.time);
             TextView golpeText = (TextView) view.findViewById(R.id.golpe_value);
-            TextView deviceText = (TextView) view.findViewById(R.id.device_value);
+            TextView indiceText = (TextView) view.findViewById(R.id.indice_value);
+            //TextView deviceText = (TextView) view.findViewById(R.id.device_value);
 
 
             // Obtener los valores de la base de datos
@@ -39,14 +41,22 @@ public class MovementCursorAdapter  extends CursorAdapter {
             String date = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DATE));
             String time = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.TIME));
             String golpe = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.TIPO));
-            String device = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DEVICE));
+            //String device = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DEVICE));
+            String multiple = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.MULT));
+            String indice = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.IND));
 
             // Asignar los valores a los elementos del layout
             idText.setText(id);
             dateText.setText(date);
             timeText.setText(time);
             golpeText.setText(golpe);
-            deviceText.setText(device);
+            //deviceText.setText(device);
+            indiceText.setText(indice);
+            if(multiple.equals("multiple")){
+                multText.setText("múltiple");
+            } else{
+                multText.setText("individual");
+            }
 
         }
 

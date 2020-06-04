@@ -60,7 +60,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ScanActivity extends AppCompatActivity implements DevicesListFragment.OnDevicesFragmentInteractionListener {
 
-    //Definición de variables
+    // Definición de variables
     private DatabaseSQLHelper mDatabaseSQLHelper;
     private MenuItem refreshItem = null;
     private LocationManager locationManager;
@@ -78,6 +78,8 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     double acc_z;
 
     String mov;
+    String mult;
+    int indice = 0;
     public String mUserId;
     String[] devicesArray = null;
     public static final String EXTRA_USER_ID= "extra_user_id";
@@ -86,7 +88,7 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
 
     private static final int MSG_MOVEMENT = 101;
 
-    //Variables del sistema Bluetooth
+    // Variables del sistema Bluetooth
     public static BluetoothGatt mBleGatt;
     BluetoothManager mBleManager;
     BluetoothAdapter mBleAdapter;
@@ -94,7 +96,7 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     private final Map< String, BluetoothDevice> mBleDevices = new HashMap<String, BluetoothDevice>();
     private BluetoothDevice mBleDevice;
 
-    //Definición de fragments
+    // Definición de fragments
     Fragment deviceList = new DevicesListFragment().newInstance(devicesArray);
     Fragment newMovement = new newMovementFragment().newInstance();
     final FragmentManager fm = getSupportFragmentManager();
@@ -131,58 +133,58 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
         //Definir el layout a usar
         setContentView(R.layout.activity_scan);
 
-        //Recoger los datos pasados por la actividad anterior
+        // Recoger los datos pasados por la actividad anterior
         Bundle b = getIntent().getExtras();
         if (b != null) {
             mUserId = b.getString(EXTRA_USER_ID);
         }
 
-        //Definición y configuración de la barra de herramientas
+        // Definición y configuración de la barra de herramientas
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
 
-        //Añadir los fragments a usar y establecer el activo
+        // Añadir los fragments a usar y establecer el activo
         fm.beginTransaction().add(R.id.scan_container, newMovement, "2").hide(newMovement).commit();
         fm.beginTransaction().add(R.id.scan_container,deviceList, "1").commit();
 
-        //Nueva instancia de conexión a la base de datos
+        // Nueva instancia de conexión a la base de datos
         mDatabaseSQLHelper = new DatabaseSQLHelper(this);
 
-        //Configuración del adaptador Bluetooth
+        // Configuración del adaptador Bluetooth
         mBleManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBleAdapter = mBleManager.getAdapter();
 
-        //Configuración del escáner Bluetooth
+        // Configuración del escáner Bluetooth
         mBleScanner = mBleAdapter.getBluetoothLeScanner();
 
-        //Comprobar si el dispositivo soporta Low Energy Bluetooth
+        // Comprobar si el dispositivo soporta Low Energy Bluetooth
         if (mBleAdapter == null) {
             // El dispositivo no soporta Low Energy Bluetooth
             Toast.makeText(this,
                     "El dispositivo no soporta Low Energy Bluetooth", Toast.LENGTH_LONG).show();
         }
 
-        //Comprobar si posee permiso de ubicación y si no pedir al usuario
+        // Comprobar si posee permiso de ubicación y si no pedir al usuario
         if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
                     new String[] {Manifest.permission.ACCESS_COARSE_LOCATION },
                     PERMISSION_REQUEST_COARSE_LOCATION);
         }
 
-        //Habilitación del Bluetooth
+        // Habilitación del Bluetooth
         if (mBleAdapter != null && !mBleAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, PERMISSION_REQUEST_BLUETOOTH_ENABLE);
         }
 
-        //Encendido del sistema GPS si está apagado
+        // Encendido del sistema GPS si está apagado
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //Mostrar mensaje
+            // Mostrar mensaje
             dialogos(D_LOCATION_DISABLED);
         }else{
-            //Empezar búsqueda de dispositivos
+            // Empezar búsqueda de dispositivos
             startScan(true);
         }
 
@@ -202,25 +204,25 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     protected void onRestart(){
         super.onRestart();
 
-        //Comprobar si sigue teniendo permiso de ubicación, y si no pedir al usuario
+        // Comprobar si sigue teniendo permiso de ubicación, y si no pedir al usuario
         if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
                     new String[] {Manifest.permission.ACCESS_COARSE_LOCATION },
                     PERMISSION_REQUEST_COARSE_LOCATION);
         }
 
-        //Comprobar si Bluetooth sigue habilitado y si no habilitar
+        // Comprobar si Bluetooth sigue habilitado y si no habilitar
         if (mBleAdapter != null && !mBleAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, PERMISSION_REQUEST_BLUETOOTH_ENABLE);
         }
 
-        //Comprobar si GPS sigue encendido y si no encender
+        // Comprobar si GPS sigue encendido y si no encender
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             dialogos(D_LOCATION_DISABLED);
         }else{
-            //Empezar escaneo
+            // Empezar escaneo
             startScan(true);
         }
 
@@ -298,21 +300,21 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
-            //Comprobar resultado petición activar Bluetooth
+            // Comprobar resultado petición activar Bluetooth
             case PERMISSION_REQUEST_BLUETOOTH_ENABLE:
                 if (resultCode != Activity.RESULT_OK) {
                     dialogos(D_NEED_BLE);
                 }
                 break;
 
-            //Comprobar resultado petición encender GPS
+            // Comprobar resultado petición encender GPS
             case PERMISSION_REQUEST_LOCATION_ENABLE:
                 if (resultCode != Activity.RESULT_OK){
 
                     if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                         dialogos(D_NEED_LOCATION);
                     }else{
-                        //Empezar escaneo
+                        // Empezar escaneo
                         startScan(true);
                     }
                 }
@@ -437,8 +439,8 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
      * Método para parar la búsqueda de dipositivos
      */
     public void stopScan() {
-        mSearching=false;
-        System.out.println("stopping scanning");
+        mSearching = false;
+        System.out.println("Deteniendo el escaneo");
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -458,8 +460,11 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
         public void onScanResult(int callbackType, ScanResult result) {
             BluetoothDevice mBleDevice;
             mBleDevice = result.getDevice();
-            if (mBleDevice != null && mBleDevice.getName() != null && mBleDevice.getName().contains("WeSU") && !mBleDevices.containsValue(mBleDevice)) {
-                //Añadir dispositivo a la lista
+            if (mBleDevice != null
+                    && mBleDevice.getName() != null
+                    && mBleDevice.getName().contains("WeSU")
+                    && !mBleDevices.containsValue(mBleDevice)) {
+                // Añadir dispositivo a la lista
                 mBleDevices.put(mBleDevice.getAddress(), mBleDevice);
                 devicesArray = mBleDevices.keySet().toArray(new String[mBleDevices.keySet().size()]);
             }
@@ -525,7 +530,7 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
                 }, 30000);
 
             }else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                Log.i("FIT APP", "Disconnected from GATT client");
+                Log.i("Prueba conexión", "Disconnected from GATT client");
                 gatt.close();
                 connectBLEDevice(mBleDevice);
 
@@ -609,7 +614,7 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
             gatt.setCharacteristicNotification(characteristic, true);
 
             // Habilitar notificationes remotas
-            descriptor= characteristic.getDescriptor(UUID_DESCRIPTOR);
+            descriptor = characteristic.getDescriptor(UUID_DESCRIPTOR);
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
             gatt.writeDescriptor(descriptor);
 
@@ -867,9 +872,14 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
             user = new Usuario(c);
         }
 
+        if(isMultiple()){
+            mult = "multiple";
+        } else{
+            mult = "single";
+        }
 
         //Crear un objeto de la clase Actividad
-        Golpe golpe = new Golpe(mov, mBleDevice.getName(), mUserId, duration, user.getName(), user.getAge(), user.getBrazo(), "Sin analizar");
+        Golpe golpe = new Golpe(mov, mBleDevice.getName(), mUserId, duration, mult, indice, user.getName(), user.getAge(), user.getBrazo(), "Sin analizar");
 
         //Añadir Actividad a la base de datos
         addActivity(golpe);
@@ -919,6 +929,8 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
         //newMovementFragment n = newMovementFragment.newInstance();
     }
 
+    ////////////////////////////    MÚLTIPLE   ///////////////////////////////////////////////////
+
     /**
      * Método para obtener el valor del SharedPrefs
      */
@@ -962,6 +974,7 @@ public class ScanActivity extends AppCompatActivity implements DevicesListFragme
                     if(NEW_MOV) {
                         SimpleDateFormat data = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
                         mov = data.format(new Date());
+                        indice++;
                     }
 
                     // Crear objeto de la clase Movimiento a partir de los datos obtenidos

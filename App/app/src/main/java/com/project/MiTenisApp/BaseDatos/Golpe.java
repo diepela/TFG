@@ -16,13 +16,15 @@ public class Golpe {
     private String device;
     private String user_id;
     private Double duration;
+    private String multiple;
+    private Integer indice;
     private String name;
     private Integer age;
     private String brazo;
     private String tipo;
 
 
-    public Golpe(String mov, String device, String user_id, Double duration, String name, Integer age, String brazo, String tipo) {
+    public Golpe(String mov, String device, String user_id, Double duration, String multiple, Integer indice, String name, Integer age, String brazo, String tipo) {
 
         this.mov = mov;
         SimpleDateFormat date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
@@ -32,12 +34,12 @@ public class Golpe {
         this.device = device;
         this.user_id = user_id;
         this.duration = duration;
+        this.multiple = multiple;
+        this.indice = indice;
         this.name = name;
         this.age = age;
         this.brazo = brazo;
         this.tipo = tipo;
-        // this.weight = weight;
-        // this.height = height;
     }
 
     public Golpe(Cursor cursor) {
@@ -48,7 +50,8 @@ public class Golpe {
         device = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.DEVICE));
         user_id = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.USER_ID));
         duration = cursor.getDouble(cursor.getColumnIndex(Definitions.GolpeEntry.DURATION));
-
+        multiple = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.MULT));
+        indice = cursor.getInt(cursor.getColumnIndex(Definitions.GolpeEntry.IND));
         name= cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.NAME));
         age= cursor.getInt(cursor.getColumnIndex(Definitions.GolpeEntry.AGE));
         brazo = cursor.getString(cursor.getColumnIndex(Definitions.GolpeEntry.BRAZO));
@@ -64,6 +67,8 @@ public class Golpe {
         values.put(Definitions.GolpeEntry.DEVICE, device);
         values.put(Definitions.GolpeEntry.USER_ID, user_id);
         values.put(Definitions.GolpeEntry.DURATION, duration);
+        values.put(Definitions.GolpeEntry.MULT, multiple);
+        values.put(Definitions.GolpeEntry.IND, indice);
         values.put(Definitions.GolpeEntry.NAME, name);
         values.put(Definitions.GolpeEntry.AGE, age);
         values.put(Definitions.GolpeEntry.BRAZO, brazo);
@@ -114,6 +119,14 @@ public class Golpe {
 
     public String getTipo(){
         return tipo;
+    }
+
+    public String getMultiple(){
+        return multiple;
+    }
+
+    public Integer getIndice(){
+        return indice;
     }
 
 }

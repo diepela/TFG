@@ -2,7 +2,6 @@ package com.project.MiTenisApp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,7 +43,6 @@ public class MovementDetailsFragment extends Fragment {
 
         //Definir el layout a usar
         View view = inflater.inflate(R.layout.fragment_activity_detail, container, false);
-        Log.i("funca", "aqui si");
 
         //Referencias a objetos del layout e inicialización
         mDate = (TextView) view.findViewById(R.id.register_value);
@@ -65,6 +63,8 @@ public class MovementDetailsFragment extends Fragment {
             img.setImageResource(R.drawable.federer_drive);
         } else if(golpe.equals("Revés")){
             img.setImageResource(R.drawable.federer_reves);
+        } else if(golpe.equals("Saque")) {
+            img.setImageResource(R.drawable.saque);
         } else if(golpe.equals("Mala detección")){
             img.setImageResource(R.drawable.error);
         }
