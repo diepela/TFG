@@ -48,4 +48,12 @@ Memoria: Base de datos explicada.
 
 2020-06-04
 Memoria: Avanzada hasta el bloque de Conexión BLE. 
+App: Sincronizado con los avances de test. Se detecta si es registro de 1 golpe o de
+varios, se muestran esos datos en historial. 
+Video: Añadido proyecto de ambos videos realizados.
+
+2020-06-08
+Memoria: Desarrollo y conclusión terminados. Falta repasar todo y acabar los huecos que faltan.
+App: Terminada a falta de implementar detección de brazo izquierdo (no necesario) y afinar los umbrales (cuando vayamos a pádel veremos)
+Video: Falta realizar un video donde se vea la app y a la vez el registro de un golpe en persona.
 
